@@ -1,0 +1,30 @@
+package com.mortuusterra.managers;
+
+import java.util.HashMap;
+import java.util.logging.Level;
+
+import org.bukkit.entity.Player;
+
+import com.mortuusterra.MortuusTerraMain;
+import com.mortuusterra.communication.MTChatChannel;
+
+public class MTCommunicationChannels {
+
+	private HashMap<Player, MTChatChannel> MTMap = new HashMap<Player, MTChatChannel>();
+
+	private MortuusTerraMain main;
+
+	public MTCommunicationChannels(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+	public void addPlayer(Player p) {
+		if (main.isDebugMode()) {
+			main.getLogger().log(Level.INFO, "Player " + p.getName() + " is already in the map");
+			main.getLogger().log(Level.INFO, "Player " + p.getName() + " is in channel " + MTMap.get(p).name());
+		}
+		if (MTMap.containsKey(p))
+			return;
+	}
+
+}

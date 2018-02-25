@@ -1,0 +1,8 @@
+main: com.mortuusterra.MortuusTerraCore
+name: MortuusTerraCore
+version: 0.1
+author: Kadeska23
+depends: []
+softdepends: []
+database: false
+description: Core plugin for Mortuus Terra 

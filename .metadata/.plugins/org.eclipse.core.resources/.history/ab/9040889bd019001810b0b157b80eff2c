@@ -1,0 +1,20 @@
+package com.mortuusterra.managers;
+
+import java.util.HashMap;
+
+import org.bukkit.entity.Player;
+
+import com.mortuusterra.MortuusTerraMain;
+import com.mortuusterra.communication.MTChatChannel;
+
+public class MTcommunicationChannels {
+	
+	private HashMap<Player, MTChatChannel> Pmap = new HashMap<Player, MTChatChannel>();
+
+	private MortuusTerraMain main;
+
+	public MTcommunicationChannels(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+}

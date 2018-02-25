@@ -1,0 +1,9 @@
+package com.mortuusterra.managers;
+
+public class MTcommunicationChannels {
+
+	public MTcommunicationChannels() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

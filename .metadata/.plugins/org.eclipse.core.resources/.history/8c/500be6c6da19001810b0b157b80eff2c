@@ -1,0 +1,61 @@
+package com.mortuusterra.managers;
+
+import java.util.HashMap;
+import java.util.logging.Level;
+
+import org.bukkit.entity.Player;
+
+import com.mortuusterra.MortuusTerraMain;
+import com.mortuusterra.communication.MTChatChannel;
+
+public class MTCommunicationChannels {
+
+	private HashMap<Player, MTChatChannel> MTMap = new HashMap<Player, MTChatChannel>();
+
+	private MortuusTerraMain main;
+
+	public MTCommunicationChannels(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+	public void addPlayer(Player p) {
+		if (main.isDebugMode()) {
+			if (!MTMap.containsKey(p)) {
+				main.getLogger().log(Level.INFO, "Player " + p.getName() + " is not in the map. Adding now");
+				MTMap.put(p, MTChatChannel.NULL);
+				main.getLogger().log(Level.INFO,
+						"Player " + p.getName() + " is now in the map, and is in the channel " + MTMap.get(p).name());
+				return;
+			} else {
+				main.getLogger().log(Level.INFO, "Player " + p.getName() + " is already in the map");
+				main.getLogger().log(Level.INFO, "Player " + p.getName() + " is in channel " + MTMap.get(p).name());
+				return;
+			}
+		} else if (MTMap.containsKey(p)) {
+			return;
+		}
+		MTMap.put(p, MTChatChannel.NULL);
+	}
+
+	public void setChannel(Player p, MTChatChannel channel) {
+		if (main.isDebugMode()) {
+			if (!MTMap.containsKey(p)) {
+				main.getLogger().log(Level.INFO, "Player " + p.getName() + " is not in the map. Adding now");
+				MTMap.put(p, channel);
+				main.getLogger().log(Level.INFO,
+						"Player " + p.getName() + " is now in the map, and is in the channel " + channel.name());
+				return;
+			} else {
+				main.getLogger().log(Level.INFO,
+						"Player " + p.getName() + " is already in the map. setting channel to " + channel.name());
+				MTMap.put(p, channel);
+				main.getLogger().log(Level.INFO, "Player " + p.getName() + " is in channel " + MTMap.get(p).name());
+				return;
+			}
+		} else if (!MTMap.containsKey(p)) {
+			MTMap.put(p, channel);
+			return;
+		}
+	}
+
+}

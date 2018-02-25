@@ -1,0 +1,3 @@
+MT_Core 
+
+Must only contain core functions such as; Commands, recipes, Config File utils, player utils, and other utils. 

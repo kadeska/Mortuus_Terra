@@ -1,0 +1,5 @@
+package com.mortuusterra;
+
+public enum MTchatChannel {
+
+}

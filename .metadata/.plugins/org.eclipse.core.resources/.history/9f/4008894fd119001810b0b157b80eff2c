@@ -1,0 +1,19 @@
+package com.mortuusterra.communication;
+
+public class MTChannel {
+	
+	private MTChatChannel MTChannel;
+
+	public MTChannel(MTChatChannel channel) {
+		this.setMTChannel(channel);
+	}
+
+	public MTChatChannel getMTChannel() {
+		return MTChannel;
+	}
+
+	public void setMTChannel(MTChatChannel Channel) {
+		this.MTChannel = Channel;
+	}
+
+}

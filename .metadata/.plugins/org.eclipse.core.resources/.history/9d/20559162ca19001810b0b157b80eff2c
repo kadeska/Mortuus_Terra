@@ -1,0 +1,43 @@
+package com.mortuusterra;
+
+import org.bukkit.ChatColor;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class MortuusTerraCore extends JavaPlugin {
+
+	//private FileManager fm;
+	private Commands cmd;
+
+	public MortuusTerraCore() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void onEnable() {
+		//fm = new FileManager(this);
+		cmd = new Commands();
+	}
+
+	@Override
+	public void onDisable() {
+
+	}
+	
+	public void notifyConsol(String text) {
+		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + text);
+	}
+	
+	public final MortuusTerraCore getCore() {
+		return this;
+	}
+	
+	public Commands getCommands() {
+		return cmd;
+	}
+	/*
+	public FileManager getFileManager() {
+		return fm;
+	}
+	*/
+
+}

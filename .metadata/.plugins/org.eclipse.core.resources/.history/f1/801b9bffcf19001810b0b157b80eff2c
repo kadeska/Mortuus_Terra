@@ -1,0 +1,19 @@
+package com.mortuusterra.managers;
+
+import java.util.ArrayList;
+
+import org.bukkit.entity.Player;
+
+import com.mortuusterra.MortuusTerraMain;
+
+public class MTcommunicationChannels {
+	
+	private HashMap<Player, >
+
+	private MortuusTerraMain main;
+
+	public MTcommunicationChannels(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+}

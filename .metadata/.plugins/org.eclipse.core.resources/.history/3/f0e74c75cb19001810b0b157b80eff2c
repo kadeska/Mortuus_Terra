@@ -1,0 +1,9 @@
+package com.mortuusterra.listeners;
+
+public class MTchat {
+
+	public MTchat() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
