@@ -12,3 +12,5 @@
 1519524664511	Encapsulate field 'MTChannel'
 1519525288900	Encapsulate field 'debugMode'
 1519531232831	Delete element
+1519585959390	Rename type 'MTRadiationTimer'
+1519587157613	Delete element

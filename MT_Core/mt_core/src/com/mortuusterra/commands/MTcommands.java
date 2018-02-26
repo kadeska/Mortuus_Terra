@@ -141,8 +141,20 @@ public class MTcommands implements CommandExecutor {
 					p.sendMessage(ChatColor.RED
 							+ "Unknown command. Did you mean [/channel list] or [/channel join <channel>]");
 				}
-				p.sendMessage(ChatColor.RED
-						+ "Unknown command. Did you mean [/channel list] or [/channel join <channel>]");
+				p.sendMessage(
+						ChatColor.RED + "Unknown command. Did you mean [/channel list] or [/channel join <channel>]");
+			}
+		}
+
+		if (cmd.getName().equalsIgnoreCase("mortuusterra")) {
+			if (args.length == 2) {
+				if (args[0].equalsIgnoreCase("generator")) {
+					if (args[1].equalsIgnoreCase("build")) {
+						// explain to player how to build a generator. Take the player through the 4
+						// steps of building a generator
+						
+					}
+				}
 			}
 		}
 		return true;

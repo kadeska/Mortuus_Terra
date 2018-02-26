@@ -1,0 +1,20 @@
+package com.mortuusterra.managers;
+
+import java.util.HashMap;
+
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.mortuusterra.MortuusTerraMain;
+
+public class MTRadiation {
+	
+	private MortuusTerraMain main;
+	
+	private HashMap<Player, BukkitRunnable> map = new HashMap<Player, BukkitRunnable>();
+
+	public MTRadiation(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+}

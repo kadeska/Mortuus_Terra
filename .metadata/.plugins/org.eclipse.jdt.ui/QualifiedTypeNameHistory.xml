@@ -3,10 +3,26 @@
 <fullyQualifiedTypeName name="org.bukkit.plugin.java.JavaPlugin"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="org.bukkit.command.CommandExecutor"/>
-<fullyQualifiedTypeName name="org.bukkit.entity.Player"/>
 <fullyQualifiedTypeName name="org.bukkit.ChatColor"/>
 <fullyQualifiedTypeName name="com.mortuusterra.core.MortuusTerraCore"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="com.mortuusterra.core.FileManager"/>
+<fullyQualifiedTypeName name="com.mortuusterra.commands.MTcommands"/>
+<fullyQualifiedTypeName name="org.bukkit.event.Listener"/>
+<fullyQualifiedTypeName name="org.bukkit.event.EventHandler"/>
+<fullyQualifiedTypeName name="org.bukkit.event.player.PlayerChatEvent"/>
+<fullyQualifiedTypeName name="org.bukkit.event.player.AsyncPlayerChatEvent"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.bukkit.entity.Player"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.mortuusterra.MTchatChannel"/>
+<fullyQualifiedTypeName name="java.util.logging.Level"/>
+<fullyQualifiedTypeName name="com.mortuusterra.managers.MTCommunicationChannels"/>
+<fullyQualifiedTypeName name="com.mortuusterra.listeners.MTCommunication"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.mortuusterra.MortuusTerraMain"/>
+<fullyQualifiedTypeName name="com.mortuusterra.communication.MTChatChannel"/>
+<fullyQualifiedTypeName name="net.md_5.bungee.api.ChatColor"/>
 </qualifiedTypeNameHistroy>

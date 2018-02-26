@@ -1,0 +1,69 @@
+package com.mortuusterra.listeners;
+
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.mortuusterra.MortuusTerraMain;
+import com.mortuusterra.managers.MTGeck;
+
+public class MTGeckListener implements Listener {
+
+	private MortuusTerraMain main;
+
+	public MTGeckListener(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+	@EventHandler
+	public void onInteract(PlayerInteractEvent e) {
+		e.getPlayer().sendMessage("test");
+		// is the clicked block a lever
+		if (e.getClickedBlock().getType().equals(Material.LEVER)) {
+			Block lever = e.getClickedBlock();
+			// is the block below the lever a sponge
+			if (lever.getRelative(BlockFace.DOWN).getType().equals(Material.SPONGE)) {
+				Block sponge = lever.getRelative(BlockFace.DOWN);
+				BlockFace[] faces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH };
+				for (BlockFace f : faces) {
+					// are there pistons on the 4 horizontal sides of the sponge
+					if (sponge.getRelative(f).getType().equals(Material.PISTON_BASE)) {
+						// TODO: is there a generator in range.
+						// if the sponge/geck is already in the MTGeckList then dont do anything
+						if (main.getRad().containsGeck(main.getRad().getGeck(sponge.getLocation()))) {
+							return;
+						}
+						// else add the sponge/geck to the MTGeckList
+						main.getRad().addGeck(new MTGeck(sponge.getLocation()));
+						// Inform player that the new GECK has been build and now it needs to charge and
+						// deradiate the air around it
+						e.getPlayer().sendMessage("You have succesfuly created a GECK(Garden of Eden Creation Kit!");
+						e.getPlayer().sendMessage("The GECK now will charge up and deradiate the air around it.");
+						e.getPlayer().sendMessage(
+								"Once finished there will be a radiation free zone that is about 10 blocks in every direction around the GECK");
+						e.getPlayer().sendMessage("GECK is now charging!");
+						new BukkitRunnable() {
+
+							@Override
+							public void run() {
+								for (int i = 0; i <= 10; i++) {
+									e.getPlayer().sendMessage("GECK charge progress is at: " + i + "0 %");
+									if (i == 10) {
+										e.getPlayer().sendMessage("GECK is now fully charged!");
+									}
+								}
+								cancel();
+							}
+						};
+					}
+				}
+			}
+		}
+		return;
+	}
+
+}

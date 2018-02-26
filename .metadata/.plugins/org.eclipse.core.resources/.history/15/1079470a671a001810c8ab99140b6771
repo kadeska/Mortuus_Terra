@@ -1,0 +1,9 @@
+package com.mortuusterra.listeners;
+
+public class MTPlayer {
+
+	public MTPlayer() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

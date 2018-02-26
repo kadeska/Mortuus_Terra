@@ -1,0 +1,9 @@
+package com.mortuusterra.listeners;
+
+public class MTGeneratorListener {
+
+	public MTGeneratorListener() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

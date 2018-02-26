@@ -1,0 +1,17 @@
+package com.mortuusterra.managers;
+
+import java.util.HashMap;
+
+import com.mortuusterra.MortuusTerraMain;
+
+public class MTRadiation {
+	
+	private MortuusTerraMain main;
+	
+	private HashMap<> map = new HashMap<>();
+
+	public MTRadiation(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+}

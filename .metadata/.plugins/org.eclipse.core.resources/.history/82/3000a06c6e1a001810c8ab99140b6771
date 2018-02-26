@@ -1,0 +1,9 @@
+package com.mortuusterra.managers;
+
+public class MTGeck {
+
+	public MTGeck() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
