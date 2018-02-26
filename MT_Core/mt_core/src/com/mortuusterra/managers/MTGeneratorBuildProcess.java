@@ -1,21 +1,22 @@
 package com.mortuusterra.managers;
 
+import java.util.ArrayList;
+
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.mortuusterra.MortuusTerraMain;
 
 public class MTGeneratorBuildProcess {
 
 	private MortuusTerraMain main;
-
-	private boolean stage_one = false; // bottom 9 stone slabs
-	private boolean stage_two = false; // 8 iron fences
-	private boolean stage_three = false; // top 9 stone slabs
-	private boolean stage_four = false; // Furnace
-	private boolean stage_five = false; // lamp
+	private int u = 0, d = 10;
+	private ArrayList<Block> blocks = new ArrayList<Block>();
 
 	public MTGeneratorBuildProcess(MortuusTerraMain m) {
 		this.main = m;
@@ -25,6 +26,7 @@ public class MTGeneratorBuildProcess {
 		p.sendMessage("Checking your inventory it you have all the required items ...");
 		if (p.getGameMode().equals(GameMode.CREATIVE)) {
 			p.sendMessage("You are in creative mode. You have all the items that you need");
+			return;
 		}
 		if (!p.getInventory().containsAtLeast(new ItemStack(Material.SMOOTH_BRICK), 9)) {
 			p.sendMessage("You dont have at least 9 SMOOTH_BRICK");
@@ -51,50 +53,62 @@ public class MTGeneratorBuildProcess {
 			p.sendMessage("Canceling the build process for the generator!");
 			return;
 		}
-		
-		p.sendMessage("Starting stage one of build process");
-		p.sendMessage("Please place the center ground smooth_brick block");
-
+		p.sendMessage("You have all of the required items.");
 	}
+	
+	public void startGenerator(Player p, MTGenerator mtgenerator) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (u == 0) {
+					p.sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
+				} else {
+					p.sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + u + "0 " + ChatColor.GOLD + "%");
+				}
+				u++;
+				if (u == 10) {
+					p.sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
+					p.sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
+					mtgenerator.setValid(true);
+					mtgenerator.startWaitForCoal(main, p);
+					cancel();
+				}
+			}
 
-	public boolean isStage_one() {
-		return stage_one;
+		}.runTaskTimerAsynchronously(main, 0, 30);
+		u = 0;
 	}
+	
+	public void stopGenerator(Player p, MTGenerator mtgenerator) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (d == 10) {
+					p.sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
+				} else {
+					p.sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + d + "0 " + ChatColor.GOLD + "%");
+				}
+				d--;
+				if (d == 0) {
+					p.sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
+					p.sendMessage(
+							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now compleatly powered down!");
+					mtgenerator.setValid(false);
+					cancel();
+				}
+			}
 
-	public boolean isStage_two() {
-		return stage_two;
+		}.runTaskTimerAsynchronously(main, 0, 30);
+		d = 10;
 	}
-
-	public boolean isStage_three() {
-		return stage_three;
+	
+	public void addBlock(Block b) {
+		blocks.add(b);
 	}
-
-	public boolean isStage_four() {
-		return stage_four;
+	public void clear() {
+		blocks.clear();
 	}
-
-	public boolean isStage_five() {
-		return stage_five;
+	public ArrayList<Block> getBlocks(){
+		return blocks;
 	}
-
-	public void setStage_one(boolean stage_one) {
-		this.stage_one = stage_one;
-	}
-
-	public void setStage_two(boolean stage_two) {
-		this.stage_two = stage_two;
-	}
-
-	public void setStage_three(boolean stage_three) {
-		this.stage_three = stage_three;
-	}
-
-	public void setStage_four(boolean stage_four) {
-		this.stage_four = stage_four;
-	}
-
-	public void setStage_five(boolean stage_five) {
-		this.stage_five = stage_five;
-	}
-
 }

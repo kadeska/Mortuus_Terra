@@ -1,5 +1,6 @@
 package com.mortuusterra.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,7 +9,6 @@ import org.bukkit.entity.Player;
 import com.mortuusterra.MortuusTerraMain;
 import com.mortuusterra.communication.MTChatChannel;
 
-import net.md_5.bungee.api.ChatColor;
 
 public class MTcommands implements CommandExecutor {
 
@@ -147,12 +147,28 @@ public class MTcommands implements CommandExecutor {
 		}
 
 		if (cmd.getName().equalsIgnoreCase("mortuusterra")) {
+			if (args.length == 1) {
+				if (args[0].equalsIgnoreCase("generator")) {
+					p.sendMessage("Generators are used to supply power in a 25 block range.");
+					p.sendMessage(
+							"Without power, you can not use any redstone, or make GECKs. Having power is veary importaint.");
+					p.sendMessage(
+							"The generator will consume coal in order to generate power. Without coal, there is no power being generated.");
+					p.sendMessage(
+							"If any of the generator gets broken then the power generator will stop producing power until the generator is fixed.");
+				}
+			}
 			if (args.length == 2) {
 				if (args[0].equalsIgnoreCase("generator")) {
 					if (args[1].equalsIgnoreCase("build")) {
-						// explain to player how to build a generator. Take the player through the 4
-						// steps of building a generator
-						
+						// explain to player how to build a generator.
+						p.sendMessage("First, place 9 SMOOTH_BRICK blocks down in a 3x3 floor platform.");
+						p.sendMessage(
+								"Second, place 2 iron fences on top of each other on top of the four corner blocks");
+						p.sendMessage("Third, place a 3x3 of stone slabs on top of the iron fences.");
+						p.sendMessage("Fourth, place a furnace on the center floor block.");
+						p.sendMessage("Lastly, place a redstone lamp on top of the furnace.");
+						main.getGenBuild().start(p);
 					}
 				}
 			}

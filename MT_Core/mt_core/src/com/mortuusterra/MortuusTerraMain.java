@@ -36,6 +36,7 @@ public class MortuusTerraMain extends JavaPlugin {
 		// fm = new FileManager(this);
 		cmd = new MTcommands(this);
 		getCommand("channel").setExecutor(cmd);
+		getCommand("mortuusterra").setExecutor(cmd);
 		communicationChannels = new MTCommunicationChannels(this);
 		rad = new MTRadiation(this);
 		genBuild = new MTGeneratorBuildProcess(this);

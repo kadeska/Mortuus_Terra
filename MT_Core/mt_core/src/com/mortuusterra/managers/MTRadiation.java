@@ -3,6 +3,7 @@ package com.mortuusterra.managers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,7 +12,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 import com.mortuusterra.MortuusTerraMain;
 
-import net.md_5.bungee.api.ChatColor;
 
 public class MTRadiation {
 
@@ -115,6 +115,15 @@ public class MTRadiation {
 	public boolean containsGenerator(MTGenerator mtgenerator) {
 		if (MTGeneratorList.contains(mtgenerator)) {
 			return true;
+		}
+		return false;
+	}
+	
+	public boolean containsGenerator(Location location) {
+		for(MTGenerator gen : MTGeneratorList) {
+			if(gen.getGeneratorLocation().distance(location) == 0) {
+				return true;
+			}
 		}
 		return false;
 	}

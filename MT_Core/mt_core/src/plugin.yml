@@ -10,3 +10,6 @@ commands:
   channel:
     description: Base command for sellecting a chat channel
     usage: /channel
+  mortuusterra:
+    description: Base command for mortuusterra
+    usage: /mortuusterra
