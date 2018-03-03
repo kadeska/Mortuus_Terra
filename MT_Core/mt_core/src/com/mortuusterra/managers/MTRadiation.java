@@ -6,17 +6,18 @@ import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.mortuusterra.MortuusTerraMain;
 
-
 public class MTRadiation {
 
 	private MortuusTerraMain main;
 	private int u = 0, d = 10;
+	private final int geckRange = 10, generatorRange = 25;
 
 	private HashMap<Player, BukkitTask> map = new HashMap<Player, BukkitTask>();
 	private ArrayList<MTGeck> MTGeckList = new ArrayList<MTGeck>();
@@ -118,19 +119,36 @@ public class MTRadiation {
 		}
 		return false;
 	}
-	
+
 	public boolean containsGenerator(Location location) {
-		for(MTGenerator gen : MTGeneratorList) {
-			if(gen.getGeneratorLocation().distance(location) == 0) {
+		for (MTGenerator gen : MTGeneratorList) {
+			if (gen.getGeneratorLocation().distance(location) == 0) {
 				return true;
 			}
 		}
 		return false;
 	}
 
+	public boolean isInGeneratorRange(Block block) {
+		for (MTGenerator gen : MTGeneratorList) {
+			if (block.getLocation().distance(gen.getGeneratorLocation()) <= generatorRange) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean canPlayerInteractGenerator(MTGenerator gen, Player player) {
+		if (gen.getOwner().getUniqueId().equals(player.getUniqueId()) || gen.getAllowedPlayers().contains(player)) {
+			return true;
+		}
+		return false;
+	}
+
 	public boolean isPlayerInRange(Player p) {
 		for (MTGeck mtgeck : MTGeckList) {
-			if (p.getLocation().distance(mtgeck.getGeckLocation()) <= 10 && mtgeck.getPowered() && mtgeck.isValid()) {
+			if (p.getLocation().distance(mtgeck.getGeckLocation()) <= geckRange && mtgeck.getPowered()
+					&& mtgeck.isValid()) {
 				p.sendMessage("You are in range of a GECK.");
 				return true;
 			}

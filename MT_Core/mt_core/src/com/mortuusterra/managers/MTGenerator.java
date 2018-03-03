@@ -8,6 +8,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.FurnaceInventory;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -18,13 +21,19 @@ public class MTGenerator {
 	private boolean valid = false;
 	private Location generatorLocation;
 	private World world;
-	
+
+	private final int totalBlockCount = 28;
+	private int currentBlockCount = 28;
+
+	private Player owner;
+	private ArrayList<Player> allowedPlayers = new ArrayList<Player>();
 	private ArrayList<Block> blocks = new ArrayList<Block>();
 	private BukkitTask run;
 
-	public MTGenerator(Location location, ArrayList<Block> mtgeneratorBlocks) {
+	public MTGenerator(Player owner, Location location, ArrayList<Block> mtgeneratorBlocks) {
 		this.generatorLocation = location;
 		this.blocks = mtgeneratorBlocks;
+		this.owner = owner;
 	}
 
 	public ArrayList<Block> getBlocks() {
@@ -59,30 +68,48 @@ public class MTGenerator {
 		return generatorLocation;
 	}
 	
-	private FurnaceInventory getFurnace() {
-		for(Block b : blocks) {
-			if(b.getType().equals(Material.FURNACE)) {
-				return (FurnaceInventory) b;
+	public ArrayList<Player> getAllowedPlayers() {
+		return allowedPlayers;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	private Inventory getFurnace() {
+		for (Block b : blocks) {
+			if (b.getType().equals(Material.FURNACE)) {
+				InventoryHolder ih = (InventoryHolder) b.getState();
+				return ih.getInventory();
 			}
 		}
 		return null;
 	}
-	
+
 	public void startWaitForCoal(MortuusTerraMain main, Player p) {
 		this.run = new BukkitRunnable() {
-			
+
 			@Override
 			public void run() {
-				if(getFurnace().getFuel().getAmount() != 0) {
-					if(getFurnace().getFuel().getType().equals(Material.COAL)) {
-						getFurnace().getFuel().setAmount(getFurnace().getFuel().getAmount() - 1);
-					}
-				}else {
+				if (isBroken()) {
+					p.sendMessage("Your Generator is broken, it is not generating power anymore until you fix it!!");
+					return;
+				}
+				if (getFurnace().contains(Material.COAL)) {
+					getFurnace().removeItem(new ItemStack(Material.COAL, 1));
+				} else {
 					p.sendMessage("Generator needs coal!");
 				}
-				
+
 			}
-		}.runTaskTimerAsynchronously(main, 20, 40);
+		}.runTaskTimerAsynchronously(main, 10, 50);
+	}
+
+	public boolean isBroken() {
+		if (getBlocks().size() != totalBlockCount) {
+			return true;
+		}
+		return false;
 	}
 
 }

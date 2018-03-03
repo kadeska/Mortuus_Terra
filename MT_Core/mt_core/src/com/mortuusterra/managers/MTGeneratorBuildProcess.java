@@ -55,20 +55,24 @@ public class MTGeneratorBuildProcess {
 		}
 		p.sendMessage("You have all of the required items.");
 	}
-	
+
 	public void startGenerator(Player p, MTGenerator mtgenerator) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (u == 0) {
-					p.sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW
+							+ "0 " + ChatColor.GOLD + "%");
 				} else {
-					p.sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + u + "0 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: "
+							+ ChatColor.YELLOW + u + "0 " + ChatColor.GOLD + "%");
 				}
 				u++;
 				if (u == 10) {
-					p.sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
-					p.sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW
+							+ "100 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner()
+							.sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
 					mtgenerator.setValid(true);
 					mtgenerator.startWaitForCoal(main, p);
 					cancel();
@@ -77,22 +81,26 @@ public class MTGeneratorBuildProcess {
 
 		}.runTaskTimerAsynchronously(main, 0, 30);
 		u = 0;
+		clear();
 	}
-	
+
 	public void stopGenerator(Player p, MTGenerator mtgenerator) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (d == 10) {
-					p.sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: "
+							+ ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
 				} else {
-					p.sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + d + "0 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: "
+							+ ChatColor.YELLOW + d + "0 " + ChatColor.GOLD + "%");
 				}
 				d--;
 				if (d == 0) {
-					p.sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
-					p.sendMessage(
-							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now compleatly powered down!");
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: "
+							+ ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner().sendMessage(ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE
+							+ "Generator is now compleatly powered down!");
 					mtgenerator.setValid(false);
 					cancel();
 				}
@@ -101,14 +109,16 @@ public class MTGeneratorBuildProcess {
 		}.runTaskTimerAsynchronously(main, 0, 30);
 		d = 10;
 	}
-	
+
 	public void addBlock(Block b) {
 		blocks.add(b);
 	}
+
 	public void clear() {
 		blocks.clear();
 	}
-	public ArrayList<Block> getBlocks(){
+
+	public ArrayList<Block> getBlocks() {
 		return blocks;
 	}
 }

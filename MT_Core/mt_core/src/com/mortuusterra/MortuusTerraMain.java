@@ -8,6 +8,7 @@ import com.mortuusterra.listeners.MTCommunication;
 import com.mortuusterra.listeners.MTGeckListener;
 import com.mortuusterra.listeners.MTGeneratorListener;
 import com.mortuusterra.listeners.MTPlayerListener;
+import com.mortuusterra.listeners.MTPower;
 import com.mortuusterra.managers.MTCommunicationChannels;
 import com.mortuusterra.managers.MTGeneratorBuildProcess;
 import com.mortuusterra.managers.MTRadiation;
@@ -26,6 +27,7 @@ public class MortuusTerraMain extends JavaPlugin {
 	private MTCommunication communicationListener;
 	private MTGeckListener geck;
 	private MTGeneratorListener genListener;
+	private MTPower power;
 
 	public MortuusTerraMain() {
 		// TODO Auto-generated constructor stub
@@ -40,6 +42,9 @@ public class MortuusTerraMain extends JavaPlugin {
 		communicationChannels = new MTCommunicationChannels(this);
 		rad = new MTRadiation(this);
 		genBuild = new MTGeneratorBuildProcess(this);
+
+		power = new MTPower(this);
+		getServer().getPluginManager().registerEvents(power, this);
 
 		pl = new MTPlayerListener(this);
 		getServer().getPluginManager().registerEvents(pl, this);
