@@ -1,0 +1,131 @@
+package com.mortuusterra.managers;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
+import org.bukkit.craftbukkit.v1_12_R1.block.CraftChest;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.mortuusterra.MortuusTerraMain;
+
+import net.minecraft.server.v1_12_R1.TileEntityChest;
+
+public class MTSupplyDrop {
+	private MortuusTerraMain main;
+	private World world;
+	private Chest chest;
+	private Location l;
+
+	public MTSupplyDrop(World world, MortuusTerraMain m, Location location) {
+		this.main = m;
+		this.world = world;
+		l = location;
+		initChest();
+		//start();
+		playAirEffectAt(l);
+		playGroundEffectAt(l);
+		//spawnChestAt(l);
+	}
+
+	public Chest getChest() {
+		return chest;
+	}
+	
+	private void start() {
+		playAirEffectAt(l);
+		playGroundEffectAt(l);
+	}
+
+	private Location makeLocation() {
+		Random ran = new Random();
+		int x = ran.nextInt();
+		int z = ran.nextInt();
+		int y = world.getHighestBlockYAt(x, z);
+		return new Location(world, x, y, z);
+	}
+
+	private void initChest() {
+		chest = new CraftChest(Material.CHEST, new TileEntityChest());
+		chest.setCustomName("Supply Drop");
+		chest.getInventory().addItem(new ItemStack(Material.APPLE, 1));
+	}
+
+	private void spawnChestAt(Location location) {
+		location.getBlock().setType(chest.getType());
+		chest.setCustomName("Supply Drop");
+		chest.getInventory().addItem(new ItemStack(Material.APPLE, 1));
+		//world.getBlockAt(location).setType(chest.getType());
+		return;
+	}
+
+	private void playGroundEffectAt(Location location) {
+		
+		new BukkitRunnable() {
+			int i = 0;
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void run() {
+				if (i > 2) {
+					this.cancel();
+					return;
+				}
+				for (int i = 0; i <= 20; i++) {
+					world.spawnParticle(Particle.FIREWORKS_SPARK, l, i);
+				}
+				for (int i = 0; i <= 1; i++) {
+					world.strikeLightning(location);
+					// world.createExplosion(location, i);
+					//creatExplosion(location, i);
+				}
+				i++;
+			}
+		}.runTaskTimerAsynchronously(main, 10, 20);
+		return;
+	}
+
+	private void playAirEffectAt(Location location) {
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		for (int i = (int) location.getY(); i < world.getMaxHeight(); i++) {
+			blocks.add(world.getBlockAt(new Location(world, location.getX(), i, location.getZ())));
+		}
+		new BukkitRunnable() {
+			int i = 0;
+
+			@Override
+			public void run() {
+				if (i > 10) {
+					this.cancel();
+					return;
+				}
+				for (Block b : blocks) {
+					world.spawnParticle(Particle.FIREWORKS_SPARK, b.getLocation(), i);
+				}
+				i++;
+			}
+		}.runTaskTimerAsynchronously(main, 40, 20);
+		spawnChestAt(location);
+		return;
+	}
+
+	private void creatExplosion(Location l, int i) {
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				world.createExplosion(l, i);
+
+			}
+		}.runTask(main);
+		return;
+	}
+
+}

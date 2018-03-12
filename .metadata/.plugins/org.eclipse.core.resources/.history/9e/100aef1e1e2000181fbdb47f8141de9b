@@ -1,0 +1,28 @@
+package com.mortuusterra.managers;
+
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.mortuusterra.MortuusTerraMain;
+
+public class MTTimer {
+	private MortuusTerraMain main;
+	private BukkitRunnable timmer;
+
+	public MTTimer(MortuusTerraMain m) {
+		this.main = m;
+	}
+	
+	public void start() {
+		if(!timmer.isCancelled()) {
+			return;
+		}
+		timmer.run();
+	}
+	public void stop() {
+		if(timmer.isCancelled()) {
+			return;
+		}
+		timmer.cancel();
+	}
+
+}

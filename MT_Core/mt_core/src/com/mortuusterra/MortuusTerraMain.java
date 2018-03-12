@@ -1,6 +1,7 @@
 package com.mortuusterra;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mortuusterra.commands.MTcommands;
@@ -10,8 +11,9 @@ import com.mortuusterra.listeners.MTGeneratorListener;
 import com.mortuusterra.listeners.MTPlayerListener;
 import com.mortuusterra.listeners.MTPower;
 import com.mortuusterra.managers.MTCommunicationChannels;
-import com.mortuusterra.managers.MTGeneratorBuildProcess;
 import com.mortuusterra.managers.MTRadiation;
+import com.mortuusterra.managers.MTSupplyDrop;
+import com.mortuusterra.managers.MTTimer;
 
 public class MortuusTerraMain extends JavaPlugin {
 
@@ -21,7 +23,8 @@ public class MortuusTerraMain extends JavaPlugin {
 	private MTcommands cmd;
 	private MTCommunicationChannels communicationChannels;
 	private MTRadiation rad;
-	private MTGeneratorBuildProcess genBuild;
+	private MTTimer mttimer;
+	private MTSupplyDrop mtsupplydrop;
 
 	private MTPlayerListener pl;
 	private MTCommunication communicationListener;
@@ -41,7 +44,6 @@ public class MortuusTerraMain extends JavaPlugin {
 		getCommand("mortuusterra").setExecutor(cmd);
 		communicationChannels = new MTCommunicationChannels(this);
 		rad = new MTRadiation(this);
-		genBuild = new MTGeneratorBuildProcess(this);
 
 		power = new MTPower(this);
 		getServer().getPluginManager().registerEvents(power, this);
@@ -57,11 +59,66 @@ public class MortuusTerraMain extends JavaPlugin {
 
 		communicationListener = new MTCommunication(this);
 		getServer().getPluginManager().registerEvents(communicationListener, this);
+
+		// load this last
+		startSupplydrops();
 	}
 
 	@Override
 	public void onDisable() {
+		for(Player p: getServer().getOnlinePlayers()) {
+			p.sendMessage(ChatColor.DARK_RED + "Server is restarting. You will be kicked from the server!");
+			p.kickPlayer("Server restart, come back soon!");
+		}
+		stopSupplyDrops();
+	}
 
+	private void startSupplydrops() {
+		// start server anouncment
+		mttimer = new MTTimer(getCore(), true, 0, 1) {
+			double timePassed = 0.0;
+			// 3 1/2 hours (252000 ticks)
+			int time = 252000;
+
+			@Override
+			public void run() {
+				// Message every hour
+				if (timePassed % 72000 == 0) {
+					announceServer();
+				}
+				// Message the last 30, 10, 5 , 1 minutes
+				if (timePassed % 72000 == 0.5 || timePassed % 72000 == (1 / 6) || timePassed % 72000 == (1 / 12)
+						|| timePassed % 72000 == (1 / 60)) {
+					announceServer();
+				}
+				// if the time has passed then deliver the supply drop
+				if (timePassed >= time) {
+					mtsupplydrop = null;
+					mtsupplydrop = new MTSupplyDrop(getCore().getServer().getWorld("world"), getCore());
+				}
+				timePassed++;
+			}
+
+			private void announceServer() {
+				int seconds = (int) ((time - timePassed) / 20);
+				int minutes = (int) (seconds / 60);
+				int hours = (int) (minutes / 60);
+				// seconds = seconds % 60;
+				for (Player p : getCore().getServer().getOnlinePlayers()) {
+					p.sendMessage(ChatColor.RED + "!!ANOUNCMENT!!"
+							+ (ChatColor.BLUE + " Next Supply Drop in: " + ChatColor.GOLD + hours + ChatColor.YELLOW
+									+ " Hours, " + ChatColor.GOLD + minutes + ChatColor.YELLOW + " Minutes, "
+									+ ChatColor.GOLD + seconds + ChatColor.YELLOW + " Seconds."));
+				}
+			}
+		};
+	}
+
+	private void stopSupplyDrops() {
+		if (mttimer == null) {
+			return;
+		}
+		mttimer.stop();
 	}
 
 	public void notifyConsol(String text) {
@@ -72,16 +129,16 @@ public class MortuusTerraMain extends JavaPlugin {
 		return this;
 	}
 
-	public MTGeneratorBuildProcess getGenBuild() {
-		return genBuild;
-	}
-
 	public MTcommands getCommands() {
 		return cmd;
 	}
 	/*
 	 * public FileManager getFileManager() { return fm; }
 	 */
+
+	public MTTimer getMttimer() {
+		return mttimer;
+	}
 
 	public MTCommunicationChannels getCommunicationChannels() {
 		return communicationChannels;

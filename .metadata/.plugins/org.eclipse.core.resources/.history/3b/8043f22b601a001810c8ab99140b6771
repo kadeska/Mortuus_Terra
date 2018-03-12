@@ -1,9 +1,0 @@
-package com.mortuusterra.managers;
-
-public class MTPlayer {
-
-	public MTPlayer() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

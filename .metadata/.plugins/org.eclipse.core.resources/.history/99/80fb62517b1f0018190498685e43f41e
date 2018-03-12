@@ -1,0 +1,38 @@
+package com.mortuusterra.util;
+
+import java.util.ArrayList;
+
+import org.bukkit.Material;
+
+public class MTLootTable {
+	
+	
+	private ArrayList<Material> list = new ArrayList<Material>();
+	
+	public MTLootTable() {
+		list.add(Material.WOOD);
+		list.add(Material.COBBLESTONE);
+		list.add(Material.APPLE);
+		list.add(Material.BREAD);
+		list.add(Material.RAW_BEEF);
+		list.add(Material.IRON_INGOT);
+		list.add(Material.GOLD_INGOT);
+		list.add(Material.LAPIS_ORE);
+		list.add(Material.REDSTONE);
+		list.add(Material.DIAMOND);
+		list.add(Material.EMERALD);
+		list.add(Material.WOOD_SWORD);
+		list.add(Material.IRON_SWORD);
+		list.add(Material.BOW);
+		list.add(Material.LEATHER_HELMET);
+		list.add(Material.LEATHER_CHESTPLATE);
+		list.add(Material.LEATHER_LEGGINGS);
+		list.add(Material.LEATHER_BOOTS);
+		list.add(Material.IRON_CHESTPLATE);
+		list.add(Material.IRON_LEGGINGS);
+		list.add(Material.DIAMOND_CHESTPLATE);
+		list.add(Material.ROTTEN_FLESH);
+		list.add(Material.ARROW);
+	}
+
+}

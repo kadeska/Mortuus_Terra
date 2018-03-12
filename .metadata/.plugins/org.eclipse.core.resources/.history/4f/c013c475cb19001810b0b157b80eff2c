@@ -1,9 +1,0 @@
-package com.mortuusterra.listeners;
-
-public class MTcommunication {
-
-	public MTcommunication() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

@@ -1,9 +1,0 @@
-package com.mortuusterra.managers;
-
-public class MTRadiationTimer {
-
-	public MTRadiationTimer() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

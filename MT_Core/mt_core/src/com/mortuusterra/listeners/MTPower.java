@@ -19,7 +19,7 @@ public class MTPower implements Listener {
 	public void onPower(BlockRedstoneEvent e) {
 		if(!main.getRad().isInGeneratorRange(e.getBlock())) {
 			e.setNewCurrent(0);
-			e.getBlock().getWorld().playEffect(e.getBlock().getLocation(), Effect.SMOKE, 2);
+			e.getBlock().getWorld().playEffect(e.getBlock().getLocation(), Effect.SMOKE, 0);
 			return;
 		}
 		return;

@@ -1,0 +1,73 @@
+package com.mortuusterra.managers;
+
+import java.util.ArrayList;
+
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.mortuusterra.MortuusTerraMain;
+
+public class MTGeneratorBuildProcess {
+
+	private MortuusTerraMain main;
+	
+	private ArrayList<Block> blocks = new ArrayList<Block>();
+
+	public MTGeneratorBuildProcess(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+	public void start(Player p) {
+		p.sendMessage("Checking your inventory it you have all the required items ...");
+		if (p.getGameMode().equals(GameMode.CREATIVE)) {
+			p.sendMessage("You are in creative mode. You have all the items that you need");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.SMOOTH_BRICK), 9)) {
+			p.sendMessage("You dont have at least 9 SMOOTH_BRICK");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.STONE_SLAB2), 9)) {
+			p.sendMessage("You dont have at least 9 STONE_SLAB");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.IRON_FENCE), 8)) {
+			p.sendMessage("You dont have at least 8 IRON_FENCE");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.REDSTONE_LAMP_OFF), 1)) {
+			p.sendMessage("You dont have at least 1 REDSTONE_LAMP");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.FURNACE), 1)) {
+			p.sendMessage("You dont have at least 1 FURNACE");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		p.sendMessage("You have all of the required items.");
+	}
+
+	
+
+	public void addBlock(Block b) {
+		blocks.add(b);
+	}
+
+	public void clear() {
+		blocks.clear();
+	}
+
+	public ArrayList<Block> getBlocks() {
+		return blocks;
+	}
+}

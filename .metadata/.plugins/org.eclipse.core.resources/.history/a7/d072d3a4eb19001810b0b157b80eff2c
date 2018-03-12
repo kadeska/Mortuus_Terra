@@ -1,8 +1,0 @@
-main: com.mortuusterra.MortuusTerraMain
-name: MortuusTerra
-version: 0.1
-author: Kadeska23
-depends: []
-softdepends: []
-database: false
-description: Plugin for Mortuus Terra 

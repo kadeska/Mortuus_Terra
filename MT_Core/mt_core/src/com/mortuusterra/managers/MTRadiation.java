@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -16,7 +17,6 @@ import com.mortuusterra.MortuusTerraMain;
 public class MTRadiation {
 
 	private MortuusTerraMain main;
-	private int u = 0, d = 10;
 	private final int geckRange = 10, generatorRange = 25;
 
 	private HashMap<Player, BukkitTask> map = new HashMap<Player, BukkitTask>();
@@ -28,6 +28,7 @@ public class MTRadiation {
 	}
 
 	public void addPlayer(Player p) {
+		//main.notifyConsol("test");
 		map.put(p, new BukkitRunnable() {
 
 			@Override
@@ -40,7 +41,19 @@ public class MTRadiation {
 
 						@Override
 						public void run() {
-							p.damage(1.5);
+							if(p.getWorld().isThundering()) {
+								p.damage(2.1);
+								return;
+							}
+							if(p.getWorld().hasStorm()) {
+								p.damage(2.1);
+								return;
+							}
+							if(p.getLocation().getBlock().getType().equals(Material.WATER)) {
+								p.damage(3.5);
+								return;
+							}
+							p.damage(1.1);
 						}
 					}.runTask(main);
 				}
@@ -132,6 +145,9 @@ public class MTRadiation {
 	public boolean isInGeneratorRange(Block block) {
 		for (MTGenerator gen : MTGeneratorList) {
 			if (block.getLocation().distance(gen.getGeneratorLocation()) <= generatorRange) {
+				if(!gen.isValid()) {
+					return false;
+				}
 				return true;
 			}
 		}
@@ -157,49 +173,6 @@ public class MTRadiation {
 		return false;
 	}
 
-	public void chargeUp(MTGeck geck, Player p) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (u == 0) {
-					p.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
-				} else {
-					p.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + u + "0 " + ChatColor.GOLD + "%");
-				}
-				u++;
-				if (u == 10) {
-					p.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
-					p.sendMessage(ChatColor.BLUE + "GECK is now compleatly pwered up!");
-					geck.setPowered(true);
-					cancel();
-				}
-			}
-
-		}.runTaskTimerAsynchronously(main, 0, 30);
-		u = 0;
-	}
-
-	public void chargeDown(MTGeck geck, Player p) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (d == 10) {
-					p.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
-				} else {
-					p.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + d + "0 " + ChatColor.GOLD + "%");
-				}
-				d--;
-				if (d == 0) {
-					p.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
-					p.sendMessage(
-							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "GECK is now compleatly powered down!");
-					geck.setPowered(false);
-					cancel();
-				}
-			}
-
-		}.runTaskTimerAsynchronously(main, 0, 30);
-		d = 10;
-	}
+	
 
 }

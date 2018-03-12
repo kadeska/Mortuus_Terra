@@ -1,0 +1,91 @@
+package com.mortuusterra.managers;
+
+import java.util.ArrayList;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Chest;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.mortuusterra.MortuusTerraMain;
+
+public class MTSupplyDrop {
+	private MortuusTerraMain main;
+	private World world;
+	private Chest chest;
+	private Location l;
+
+	public MTSupplyDrop(World world, MortuusTerraMain m, Location location) {
+		this.main = m;
+		this.world = world;
+		l = makeLocation();
+	}
+
+	public Chest getChest() {
+		return chest;
+	}
+
+	/**
+	 * 
+	 * @return The average location of all online players
+	 */
+	private Location makeLocation() {
+		// Random ran = new Random();
+		// int x = ran.nextInt();
+		// int z = ran.nextInt();
+		// int y = world.getHighestBlockYAt(x, z);
+
+		ArrayList<Integer> Xlist = new ArrayList<Integer>();
+		ArrayList<Integer> Zlist = new ArrayList<Integer>();
+		int aX = 0;
+		int aZ = 0;
+		for (Player p : main.getServer().getOnlinePlayers()) {
+			Xlist.add((int) p.getLocation().getX());
+			Zlist.add((int) p.getLocation().getZ());
+		}
+		for (int xx : Xlist) {
+			aX = (aX + xx) / Xlist.size();
+		}
+		for (int zz : Zlist) {
+			aZ = (aZ + zz) / Zlist.size();
+		}
+		int y = world.getHighestBlockYAt(aX, aZ);
+
+		return new Location(world, aX, y, aZ);
+	}
+
+	private void spawnChestAt(Location location) {
+		location.getBlock().setType(chest.getType());
+		chest = (Chest) l.getBlock().getState();
+		chest.setCustomName("Supply Drop");
+		chest.update();
+		chest.getInventory().addItem(new ItemStack(Material.APPLE, 1));
+
+		return;
+	}
+
+	private void start(Location location) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i <= 3; i++) {
+					world.strikeLightningEffect(location);
+					world.createExplosion(location, 4);
+				}
+				Location l = new Location(world, location.getX(), world.getHighestBlockYAt(location), location.getZ());
+				BlockFace[] faces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH,
+						BlockFace.SOUTH, BlockFace.UP, BlockFace.DOWN};
+				for(BlockFace f : faces) {
+					l.getBlock().getRelative(f).setType(Material.MOSSY_COBBLESTONE);
+				}
+				
+
+			}
+		}.runTaskAsynchronously(main);
+		return;
+	}
+
+}

@@ -65,6 +65,8 @@
 		<item value="2" key="pageIndex"/>
 	</section>
 	<section name="completion_proposal_size">
+		<item value="252" key="size.y"/>
+		<item value="320" key="size.x"/>
 	</section>
 	<section name="AddGetterSetterDialog">
 		<item value="true" key="SortOrdering"/>
@@ -90,6 +92,7 @@
 		<item value="false" key="JarManifestWizardPage.SAVE_MANIFEST"/>
 		<item value="false" key="JarPackageWizardPage.EXPORT_OUTPUT_FOLDER"/>
 		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\Users\kades\Desktop\New folder\plugins\mortuus-terra.jar"/>
 			<item value="C:\Users\kades\Desktop\mortuus-terra.jar"/>
 		</list>
 	</section>

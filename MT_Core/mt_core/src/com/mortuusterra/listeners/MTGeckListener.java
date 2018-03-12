@@ -42,7 +42,11 @@ public class MTGeckListener implements Listener {
 					}
 				}
 
-				// TODO: is there a generator in range.
+				// is there a generator in range.
+				if(!main.getRad().isInGeneratorRange(sponge)) {
+					e.getPlayer().sendMessage("There is no generator in range");
+					return;
+				}
 				// if the sponge/geck is already in the MTGeckList then check the power state of
 				// the sponge and do appropriate actions, power off/on
 				if (main.getRad().containsGeck(main.getRad().getGeck(sponge.getLocation()))) {
@@ -51,20 +55,20 @@ public class MTGeckListener implements Listener {
 					if (sponge.isBlockPowered()) {
 						e.getPlayer().sendMessage(ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE
 								+ "The GECK now will charge down and the air around it will become radiated.");
-						main.getRad().chargeDown(main.getRad().getGeck(sponge.getLocation()), e.getPlayer());
+						main.getRad().getGeck(sponge.getLocation()).chargeDown();
 					} else {
 						e.getPlayer().sendMessage(
 								ChatColor.BLUE + "The GECK now will charge up and deradiate the air around it.");
 						e.getPlayer()
 								.sendMessage(ChatColor.BLUE + "Once finished there will be a " + ChatColor.GOLD
-										+ "radiation free zone" + ChatColor.BLUE + "that is about " + ChatColor.GOLD
+										+ " radiation free zone" + ChatColor.BLUE + "that is about " + ChatColor.GOLD
 										+ " 10 blocks " + ChatColor.BLUE + "in every direction around the GECK");
 						e.getPlayer().sendMessage(ChatColor.BLUE + "GECK is now charging. Please wait!");
-						main.getRad().chargeUp(main.getRad().getGeck(sponge.getLocation()), e.getPlayer());
+						main.getRad().getGeck(sponge.getLocation()).chargeUp();
 					}
 				} else {
 					// else add the sponge/geck to the MTGeckList
-					main.getRad().addGeck(new MTGeck(sponge.getLocation()));
+					main.getRad().addGeck(new MTGeck(sponge.getLocation(), e.getPlayer(), main));
 
 					// Inform player that the new GECK has been build and now it needs to charge and
 					// deradiate the air around it
@@ -76,11 +80,11 @@ public class MTGeckListener implements Listener {
 							ChatColor.BLUE + "The GECK now will charge up and deradiate the air around it.");
 					e.getPlayer()
 							.sendMessage(ChatColor.BLUE + "Once finished there will be a " + ChatColor.GOLD
-									+ "radiation free zone" + ChatColor.BLUE + "that is about " + ChatColor.GOLD
+									+ " radiation free zone" + ChatColor.BLUE + "that is about " + ChatColor.GOLD
 									+ " 10 blocks " + ChatColor.BLUE + "in every direction around the GECK");
 					e.getPlayer().sendMessage(ChatColor.BLUE + "GECK is now charging. Please wait!");
 					main.getRad().getGeck(sponge.getLocation()).setValid(true);
-					main.getRad().chargeUp(main.getRad().getGeck(sponge.getLocation()), e.getPlayer());
+					main.getRad().getGeck(sponge.getLocation()).chargeUp();
 				}
 			}
 		}

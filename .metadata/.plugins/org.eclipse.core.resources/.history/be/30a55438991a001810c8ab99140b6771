@@ -1,9 +1,0 @@
-package com.mortuusterra.managers;
-
-public class MTGeneratorBuildProcess {
-
-	public MTGeneratorBuildProcess() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

@@ -1,0 +1,9 @@
+package com.mortuusterra.managers;
+
+public class MTTimer {
+
+	public MTTimer() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

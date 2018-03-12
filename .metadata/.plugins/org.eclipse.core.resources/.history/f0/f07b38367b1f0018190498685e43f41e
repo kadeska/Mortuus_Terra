@@ -1,0 +1,9 @@
+package com.mortuusterra.util;
+
+public class MTLootTable {
+
+	public MTLootTable() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

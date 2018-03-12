@@ -1,0 +1,165 @@
+package com.mortuusterra.managers;
+
+import java.util.ArrayList;
+
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.mortuusterra.MortuusTerraMain;
+
+public class MTGeneratorBuildProcess {
+
+	private MortuusTerraMain main;
+	private int u = 0, d = 10;
+	private ArrayList<Block> blocks = new ArrayList<Block>();
+
+	public MTGeneratorBuildProcess(MortuusTerraMain m) {
+		this.main = m;
+	}
+
+	public void start(Player p) {
+		p.sendMessage("Checking your inventory it you have all the required items ...");
+		if (p.getGameMode().equals(GameMode.CREATIVE)) {
+			p.sendMessage("You are in creative mode. You have all the items that you need");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.SMOOTH_BRICK), 9)) {
+			p.sendMessage("You dont have at least 9 SMOOTH_BRICK");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.STONE_SLAB2), 9)) {
+			p.sendMessage("You dont have at least 9 STONE_SLAB");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.IRON_FENCE), 8)) {
+			p.sendMessage("You dont have at least 8 IRON_FENCE");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.REDSTONE_LAMP_OFF), 1)) {
+			p.sendMessage("You dont have at least 1 REDSTONE_LAMP");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		if (!p.getInventory().containsAtLeast(new ItemStack(Material.FURNACE), 1)) {
+			p.sendMessage("You dont have at least 1 FURNACE");
+			p.sendMessage("Canceling the build process for the generator!");
+			return;
+		}
+		p.sendMessage("You have all of the required items.");
+	}
+
+	public void startGenerator(Player p, MTGenerator mtgenerator) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (u == 0) {
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW
+							+ "0 " + ChatColor.GOLD + "%");
+				} else {
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: "
+							+ ChatColor.YELLOW + u + "0 " + ChatColor.GOLD + "%");
+				}
+				u++;
+				if (u == 10) {
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot progress: " + ChatColor.YELLOW
+							+ "100 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner()
+							.sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
+					mtgenerator.setValid(true);
+					mtgenerator.startWaitForCoal(main, p);
+					cancel();
+				}
+			}
+
+		}.runTaskTimerAsynchronously(main, 0, 30);
+		u = 0;
+		clear();
+	}
+
+	public void stopGenerator(Player p, MTGenerator mtgenerator) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (d == 10) {
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: "
+							+ ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
+				} else {
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: "
+							+ ChatColor.YELLOW + d + "0 " + ChatColor.GOLD + "%");
+				}
+				d--;
+				if (d == 0) {
+					mtgenerator.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: "
+							+ ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
+					mtgenerator.getOwner().sendMessage(ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE
+							+ "Generator is now compleatly powered down!");
+					mtgenerator.setValid(false);
+					cancel();
+				}
+			}
+
+		}.runTaskTimerAsynchronously(main, 0, 30);
+		d = 10;
+	}
+
+	public void addBlock(Block b) {
+		blocks.add(b);
+	}
+
+	public void clear() {
+		blocks.clear();
+	}
+
+	public ArrayList<Block> getBlocks() {
+		return blocks;
+	}
+
+	/**
+	 * 
+	 * @param gen The generator that is to be scanned
+	 * @return 
+	 * True if generator is still fully built. 
+	 * False if generator is not still fully built.
+	 */
+	public boolean scan(MTGenerator gen) {
+		Block furnace = gen.getFurnace();
+		if (furnace.getRelative(BlockFace.UP).getType().equals(Material.REDSTONE_LAMP_OFF)) {
+			Block lamp = furnace.getRelative(BlockFace.UP);
+			if (furnace.getRelative(BlockFace.DOWN).getType().equals(Material.SMOOTH_BRICK)) {
+				Block centerGround = furnace.getRelative(BlockFace.DOWN);
+				if (lamp.getRelative(BlockFace.UP).getType().equals(Material.STEP)) {
+					Block centerTop = lamp.getRelative(BlockFace.UP);
+					BlockFace[] squareFaces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH,
+							BlockFace.NORTH_EAST, BlockFace.NORTH_WEST, BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST };
+					BlockFace[] ironFenceFaces = { BlockFace.NORTH_EAST, BlockFace.NORTH_WEST, BlockFace.SOUTH_EAST,
+							BlockFace.SOUTH_WEST };
+					for (BlockFace f : squareFaces) {
+						if (!centerGround.getRelative(f).getType().equals(Material.SMOOTH_BRICK)
+								|| !centerTop.getRelative(f).getType().equals(Material.STEP)) {
+							gen.getOwner().sendMessage("Generator is not built corectly!");
+							return false;
+						}
+					}
+					for (BlockFace f : ironFenceFaces) {
+						if (!furnace.getRelative(f).getType().equals(Material.IRON_FENCE)
+								|| !lamp.getRelative(f).getType().equals(Material.IRON_FENCE)) {
+							gen.getOwner().sendMessage("Generator is not built corectly!");
+							return false;
+						}
+					}
+				}
+			}
+		}
+		// generator must be built correctly still, so return true
+		return true;
+	}
+}
