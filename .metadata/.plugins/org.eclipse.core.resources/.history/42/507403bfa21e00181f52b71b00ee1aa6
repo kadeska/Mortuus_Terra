@@ -1,9 +1,0 @@
-package com.mortuusterra.listeners;
-
-public class MTPower {
-
-	public MTPower() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
