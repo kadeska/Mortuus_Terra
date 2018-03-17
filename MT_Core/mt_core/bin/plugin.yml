@@ -1,6 +1,6 @@
 main: main.java.com.mortuusterra.MortuusTerraMain
 name: MortuusTerra
-version: 0.1.0
+version: 1.0.0
 author: Kadeska23
 depends: []
 softdepends: []
