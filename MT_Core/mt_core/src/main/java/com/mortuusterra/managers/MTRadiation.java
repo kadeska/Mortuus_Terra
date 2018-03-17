@@ -33,9 +33,10 @@ public class MTRadiation {
 
 			@Override
 			public void run() {
-				//main.callEvent(event = new MTRadiationDamageEvent(p));
-				if (event.isCancelled())
-					return;
+				// main.callEvent(event = new MTRadiationDamageEvent(p));
+				/*
+				 * if (event.isCancelled()) return;
+				 */
 
 				if (p.getGameMode().equals(GameMode.CREATIVE) || p.getGameMode().equals(GameMode.SPECTATOR)) {
 					return;
