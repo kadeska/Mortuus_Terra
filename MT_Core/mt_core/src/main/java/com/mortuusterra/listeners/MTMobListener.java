@@ -23,7 +23,7 @@ public class MTMobListener implements Listener {
 	}
 
 	/**
-	 * Enderman, Pig, Cow, Sheep, Horse, Squid. 
+	 * Enderman, Pig, Cow, Sheep, Horse, Squid, zombie. 
 	 * Only these mobs should be allowed to spawn.
 	 * @param e CreatureSpawnEvent
 	 */

@@ -33,7 +33,7 @@ public class MTRadiation {
 
 			@Override
 			public void run() {
-				main.callEvent(event = new MTRadiationDamageEvent(p));
+				//main.callEvent(event = new MTRadiationDamageEvent(p));
 				if (event.isCancelled())
 					return;
 
