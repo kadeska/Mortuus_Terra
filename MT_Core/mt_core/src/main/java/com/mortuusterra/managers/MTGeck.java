@@ -91,6 +91,11 @@ public class MTGeck {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				if (u < 0 || u > 11) {
+					// u = 0;
+					cancel();
+					// return;
+				}
 				if (u == 0) {
 					owner.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
 				} else {
@@ -115,7 +120,13 @@ public class MTGeck {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				if (d < 0 || d > 11) {
+					// d = 10;
+					cancel();
+					// return;
+				}
 				if (d == 10) {
+
 					owner.sendMessage(
 							ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
 				} else {
@@ -123,7 +134,7 @@ public class MTGeck {
 							ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + d + "0 " + ChatColor.GOLD + "%");
 				}
 				d--;
-				if (d == 0) {
+				if (d <= 0) {
 					owner.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
 					owner.sendMessage(
 							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "GECK is now compleatly powered down!");

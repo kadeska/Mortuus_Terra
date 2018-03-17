@@ -184,6 +184,11 @@ public class MTGenerator {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				if(u < 0 || u > 11) {
+					cancel();
+					//u = 0;
+					//return;
+				}
 				if (u == 0) {
 					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + "0 "
 							+ ChatColor.GOLD + "%");
@@ -192,7 +197,7 @@ public class MTGenerator {
 							+ "0 " + ChatColor.GOLD + "%");
 				}
 				u++;
-				if (u >= 10) {
+				if (u == 10) {
 					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW
 							+ "100 " + ChatColor.GOLD + "%");
 					gen.getOwner()
@@ -216,6 +221,11 @@ public class MTGenerator {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				if(d < 0 || d > 11) {
+					//d = 10;
+					cancel();
+					//return;
+				}
 				if (d == 10) {
 					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
 							+ "100 " + ChatColor.GOLD + "%");
@@ -235,6 +245,7 @@ public class MTGenerator {
 					breakLamp();
 					main.getRad().removeGenerator(gen);
 					cancel();
+					//return;
 				}
 			}
 
