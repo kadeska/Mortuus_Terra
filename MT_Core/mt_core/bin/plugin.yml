@@ -1,4 +1,4 @@
-main: main.java.com.mortuusterra.MortuusTerraMain
+main: com.mortuusterra.MortuusTerraMain
 name: MortuusTerra
 version: 1.0.1
 author: Kadeska23

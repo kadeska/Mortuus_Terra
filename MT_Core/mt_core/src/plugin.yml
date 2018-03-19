@@ -1,4 +1,4 @@
-main: main.java.com.mortuusterra.MortuusTerraMain
+main: com.mortuusterra.MortuusTerraMain
 name: MortuusTerra
 version: 1.0.1
 author: Kadeska23
@@ -8,7 +8,7 @@ database: false
 description: Plugin for Mortuus Terra 
 commands:
   channel:
-    description: Base command for sellecting a chat channel
+    description: Base command for selecting a chat channel
     usage: /channel
   mortuusterra:
     description: Base command for mortuusterra
