@@ -1,12 +1,20 @@
 package main.java.com.mortuusterra.util;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.sk89q.worldedit.bags.OutOfBlocksException;
 
 import main.java.com.mortuusterra.MortuusTerraMain;
 
 public class MTfile {
 	private MortuusTerraMain core;
+	private JSONParser parser = new JSONParser();
 
 	public MTfile(MortuusTerraMain core) {
 		this.core = core;
@@ -20,9 +28,9 @@ public class MTfile {
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
-				core.notifyConsol("The " + name + ".yml file has been created");
+				core.notifyConsole("The " + name + ".yml file has been created");
 			} catch (IOException e) {
-				core.notifyConsol("Could not create the " + name + ".yml file");
+				core.notifyConsole("Could not create the " + name + ".yml file");
 				e.printStackTrace();
 			}
 		}
@@ -38,7 +46,7 @@ public class MTfile {
 				jsonFile.createNewFile();
 			}
 		} catch (IOException e) {
-			core.notifyConsol("Could not create the " + name + ".json file");
+			core.notifyConsole("Could not create the " + name + ".json file");
 			e.printStackTrace();
 		}
 	}
@@ -55,10 +63,20 @@ public class MTfile {
 			}
 
 		} catch (IOException e) {
-			core.notifyConsol("Could not create the " + name + ".txt file");
+			core.notifyConsole("Could not create the " + name + ".txt file");
 			e.printStackTrace();
 		}
 	}
+	
+	public JSONObject getParsedJsonFile(String name) {
+		File file = new File(core.getDataFolder(), name + ".json");
+		try {
+			return (JSONObject) parser.parse(new FileReader(file));
+		} catch (IOException | ParseException e) {
+			throw new RuntimeException(String.format("Failure parsing file %s", name + ".json"), e);
+		}
+	}
+	
 	
 	public void saveFiles() {
 		

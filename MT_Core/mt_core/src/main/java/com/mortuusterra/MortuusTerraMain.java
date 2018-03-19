@@ -18,7 +18,7 @@ import main.java.com.mortuusterra.managers.MTCommunicationChannels;
 import main.java.com.mortuusterra.managers.MTFalloutShelter;
 import main.java.com.mortuusterra.managers.MTRadiation;
 import main.java.com.mortuusterra.managers.MTSupplyDrop;
-import main.java.com.mortuusterra.managers.MTTimer;
+import main.java.com.mortuusterra.tasks.MTTimer;
 
 public class MortuusTerraMain extends JavaPlugin {
 
@@ -139,7 +139,7 @@ public class MortuusTerraMain extends JavaPlugin {
 		Bukkit.getServer().getPluginManager().callEvent(event);
 	}
 
-	public void notifyConsol(String text) {
+	public void notifyConsole(String text) {
 		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + text);
 	}
 

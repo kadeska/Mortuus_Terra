@@ -11,8 +11,8 @@ public class MTInfectEvent extends Event implements Cancellable {
 	
 	private Player infectedPlayer;
 
-	public MTInfectEvent() {
-		// TODO Auto-generated constructor stub
+	public MTInfectEvent(Player infectedPlayer) {
+		this.infectedPlayer = infectedPlayer;
 	}
 
 	public HandlerList getHandlers() {
@@ -26,6 +26,10 @@ public class MTInfectEvent extends Event implements Cancellable {
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
 		
+	}
+
+	public Player getInfectedPlayer() {
+		return infectedPlayer;
 	}
 
 }

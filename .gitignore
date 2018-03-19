@@ -1,2 +1,6 @@
-/.metadata/
-/.recommenders/
+.metadata/
+
+.recommenders/
+
+bin/
+.settings/

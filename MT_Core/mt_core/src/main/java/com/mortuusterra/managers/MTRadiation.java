@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import main.java.com.mortuusterra.MortuusTerraMain;
 import main.java.com.mortuusterra.event.MTRadiationDamageEvent;
+import main.java.com.mortuusterra.tasks.MTTimer;
 
 public class MTRadiation {
 

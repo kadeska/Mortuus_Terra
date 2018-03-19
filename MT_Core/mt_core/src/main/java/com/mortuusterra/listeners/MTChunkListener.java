@@ -12,7 +12,7 @@ import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.world.DataException;
 
 import main.java.com.mortuusterra.MortuusTerraMain;
-import main.java.com.mortuusterra.managers.MTTimer;
+import main.java.com.mortuusterra.tasks.MTTimer;
 
 public class MTChunkListener implements Listener {
 
