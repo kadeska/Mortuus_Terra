@@ -1,5 +1,6 @@
-package main.java.com.mortuusterra.listeners;
+package main.java.com.mortuusterra.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -27,6 +28,8 @@ public class MTEventListener implements Listener {
 		if (event.isCancelled()) {
 			return;
 		}
+		Bukkit.getServer().getConsoleSender().sendMessage(
+				"MTRadiationDamageEvent has been called with player: " + event.getDamagedPlayer().getName());
 	}
 
 	/**

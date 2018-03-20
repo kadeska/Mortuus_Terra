@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.mortuusterra.managers.MTGeneratorBuildProcess"/>
-<fullyQualifiedTypeName name="com.mortuusterra.listeners.MTGeneratorListener"/>
 <fullyQualifiedTypeName name="org.bukkit.scheduler.BukkitTask"/>
 <fullyQualifiedTypeName name="org.bukkit.block.Furnace"/>
 <fullyQualifiedTypeName name="org.bukkit.material.Furnace"/>
@@ -28,7 +26,6 @@
 <fullyQualifiedTypeName name="org.bukkit.block.BlockFace"/>
 <fullyQualifiedTypeName name="org.bukkit.craftbukkit.v1_12_R1.block.CraftChest"/>
 <fullyQualifiedTypeName name="net.minecraft.server.v1_12_R1.TileEntityChest"/>
-<fullyQualifiedTypeName name="org.bukkit.scheduler.BukkitRunnable"/>
 <fullyQualifiedTypeName name="com.mortuusterra.managers.MTSupplyDrop"/>
 <fullyQualifiedTypeName name="org.bukkit.Effect"/>
 <fullyQualifiedTypeName name="org.bukkit.event.player.PlayerInteractEvent"/>
@@ -54,10 +51,13 @@
 <fullyQualifiedTypeName name="com.sk89q.worldedit.EditSession"/>
 <fullyQualifiedTypeName name="com.sk89q.worldedit.bukkit.BukkitWorld"/>
 <fullyQualifiedTypeName name="com.sk89q.worldedit.CuboidClipboard"/>
-<fullyQualifiedTypeName name="main.java.com.mortuusterra.managers.MTFalloutShelter"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="com.sk89q.worldedit.Vector"/>
 <fullyQualifiedTypeName name="org.bukkit.Chunk"/>
 <fullyQualifiedTypeName name="org.bukkit.block.Block"/>
+<fullyQualifiedTypeName name="main.java.com.mortuusterra.managers.MTFalloutShelter"/>
 <fullyQualifiedTypeName name="main.java.com.mortuusterra.managers.MTTimer"/>
+<fullyQualifiedTypeName name="org.bukkit.scheduler.BukkitRunnable"/>
+<fullyQualifiedTypeName name="main.java.com.mortuusterra.event.MTRadiationDamageEvent"/>
+<fullyQualifiedTypeName name="org.bukkit.Bukkit"/>
 </qualifiedTypeNameHistroy>

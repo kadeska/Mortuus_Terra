@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.listeners;
+package main.java.com.mortuusterra.listener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -11,7 +11,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import main.java.com.mortuusterra.MortuusTerraMain;
-import main.java.com.mortuusterra.managers.MTGenerator;
+import main.java.com.mortuusterra.manager.MTGenerator;
 
 public class MTGeneratorListener implements Listener {
 

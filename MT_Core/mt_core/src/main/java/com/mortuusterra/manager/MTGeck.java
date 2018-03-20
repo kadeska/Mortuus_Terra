@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.managers;
+package main.java.com.mortuusterra.manager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -116,14 +116,18 @@ public class MTGeck {
 		u = 0;
 	}
 
+	/*
+	 * there seems to be an issue with this count down timer. I can't easily explain
+	 * the issue, so just try it out in game
+	 */
 	public void chargeDown() {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (d < 0 || d > 11) {
 					// d = 10;
-					cancel();
-					// return;
+					// cancel();
+					return;
 				}
 				if (d == 10) {
 
@@ -134,7 +138,7 @@ public class MTGeck {
 							ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + d + "0 " + ChatColor.GOLD + "%");
 				}
 				d--;
-				if (d <= 0) {
+				if (d == 0) {
 					owner.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
 					owner.sendMessage(
 							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "GECK is now compleatly powered down!");

@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.commands;
+package main.java.com.mortuusterra.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

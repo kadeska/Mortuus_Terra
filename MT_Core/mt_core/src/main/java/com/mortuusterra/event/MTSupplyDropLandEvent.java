@@ -4,7 +4,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import main.java.com.mortuusterra.managers.MTSupplyDrop;
+import main.java.com.mortuusterra.manager.MTSupplyDrop;
 
 public class MTSupplyDropLandEvent extends Event implements Cancellable{
 	private static final HandlerList handlers = new HandlerList();

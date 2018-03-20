@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.managers;
+package main.java.com.mortuusterra.manager;
 
 import java.util.HashMap;
 import java.util.logging.Level;

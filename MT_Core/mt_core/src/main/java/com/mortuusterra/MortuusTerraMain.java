@@ -6,19 +6,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import main.java.com.mortuusterra.commands.MTcommands;
-import main.java.com.mortuusterra.listeners.MTChunkListener;
-import main.java.com.mortuusterra.listeners.MTCommunication;
-import main.java.com.mortuusterra.listeners.MTGeckListener;
-import main.java.com.mortuusterra.listeners.MTGeneratorListener;
-import main.java.com.mortuusterra.listeners.MTMobListener;
-import main.java.com.mortuusterra.listeners.MTPlayerListener;
-import main.java.com.mortuusterra.listeners.MTPower;
-import main.java.com.mortuusterra.managers.MTCommunicationChannels;
-import main.java.com.mortuusterra.managers.MTFalloutShelter;
-import main.java.com.mortuusterra.managers.MTRadiation;
-import main.java.com.mortuusterra.managers.MTSupplyDrop;
-import main.java.com.mortuusterra.managers.MTTimer;
+import main.java.com.mortuusterra.command.MTcommands;
+import main.java.com.mortuusterra.event.MTRadiationDamageEvent;
+import main.java.com.mortuusterra.listener.MTChunkListener;
+import main.java.com.mortuusterra.listener.MTCommunication;
+import main.java.com.mortuusterra.listener.MTGeckListener;
+import main.java.com.mortuusterra.listener.MTGeneratorListener;
+import main.java.com.mortuusterra.listener.MTMobListener;
+import main.java.com.mortuusterra.listener.MTPlayerListener;
+import main.java.com.mortuusterra.listener.MTPower;
+import main.java.com.mortuusterra.manager.MTCommunicationChannels;
+import main.java.com.mortuusterra.manager.MTFalloutShelter;
+import main.java.com.mortuusterra.manager.MTRadiation;
+import main.java.com.mortuusterra.manager.MTSupplyDrop;
+import main.java.com.mortuusterra.manager.MTTimer;
 
 public class MortuusTerraMain extends JavaPlugin {
 

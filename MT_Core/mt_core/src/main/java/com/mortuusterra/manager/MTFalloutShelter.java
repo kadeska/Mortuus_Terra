@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.managers;
+package main.java.com.mortuusterra.manager;
 
 import java.io.File;
 import java.io.IOException;

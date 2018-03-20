@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.listeners;
+package main.java.com.mortuusterra.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.listeners;
+package main.java.com.mortuusterra.listener;
 
 import java.io.IOException;
 import java.util.Random;
@@ -12,7 +12,7 @@ import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.world.DataException;
 
 import main.java.com.mortuusterra.MortuusTerraMain;
-import main.java.com.mortuusterra.managers.MTTimer;
+import main.java.com.mortuusterra.manager.MTTimer;
 
 public class MTChunkListener implements Listener {
 

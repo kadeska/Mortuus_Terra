@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.managers;
+package main.java.com.mortuusterra.manager;
 
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;

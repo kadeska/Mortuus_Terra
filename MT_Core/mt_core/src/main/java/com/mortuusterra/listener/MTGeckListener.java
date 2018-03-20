@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.listeners;
+package main.java.com.mortuusterra.listener;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import main.java.com.mortuusterra.MortuusTerraMain;
-import main.java.com.mortuusterra.managers.MTGeck;
+import main.java.com.mortuusterra.manager.MTGeck;
 import net.md_5.bungee.api.ChatColor;
 
 public class MTGeckListener implements Listener {

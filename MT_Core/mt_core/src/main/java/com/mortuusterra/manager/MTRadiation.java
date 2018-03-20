@@ -1,4 +1,4 @@
-package main.java.com.mortuusterra.managers;
+package main.java.com.mortuusterra.manager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,22 +21,21 @@ public class MTRadiation {
 	private ArrayList<MTGeck> MTGeckList = new ArrayList<MTGeck>();
 	private ArrayList<MTGenerator> MTGeneratorList = new ArrayList<MTGenerator>();
 
-	private MTRadiationDamageEvent event;
-
 	public MTRadiation(MortuusTerraMain m) {
 		this.main = m;
 	}
 
 	public void addPlayer(Player p) {
 		// main.notifyConsol("test");
-		map.put(p, new MTTimer(main, false, 20, 60) {
+		map.put(p, new MTTimer(main, true, 20, 60) {
+			MTRadiationDamageEvent event = new MTRadiationDamageEvent(p);
 
 			@Override
 			public void run() {
-				// main.callEvent(event = new MTRadiationDamageEvent(p));
-				/*
-				 * if (event.isCancelled()) return;
-				 */
+				main.callEvent(event);
+
+				if (event.isCancelled())
+					return;
 
 				if (p.getGameMode().equals(GameMode.CREATIVE) || p.getGameMode().equals(GameMode.SPECTATOR)) {
 					return;
@@ -171,11 +170,11 @@ public class MTRadiation {
 		for (MTGeck mtgeck : MTGeckList) {
 			if (p.getLocation().distance(mtgeck.getGeckLocation()) <= geckRange && mtgeck.getPowered()
 					&& mtgeck.isValid()) {
-				p.sendMessage("You are in range of a GECK.");
+				//p.sendMessage("You are in range of a GECK.");
 				return true;
 			}
 		}
-		p.sendMessage("You are not in range of a GECK.");
+		//p.sendMessage("You are not in range of a GECK.");
 		return false;
 	}
 
