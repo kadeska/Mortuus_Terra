@@ -13,10 +13,11 @@ public class MTInfectTask extends MTTimer {
 
 	@Override
 	public void run() {
+		
 		Bukkit.getOnlinePlayers()
 			  .stream()
 			  .filter(MTInfect::isInfected)
-			  .filter(p -> MTInfect.getInfectionEndTime(p) > System.currentTimeMillis())
+			  .filter(p -> MTInfect.getInfectionEndTime(p) < System.currentTimeMillis())
 			  .forEach(MTInfect::removeInfect);
 	}
 

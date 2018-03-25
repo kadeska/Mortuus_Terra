@@ -2,22 +2,29 @@ package com.mortuusterra.util;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.bags.OutOfBlocksException;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.mortuusterra.MortuusTerraMain;
 
 public class MTfile {
 	private MortuusTerraMain core;
-	private JSONParser parser = new JSONParser();
+	private Gson gson;
 
 	public MTfile(MortuusTerraMain core) {
 		this.core = core;
+		// Create GSON.
+		gson = new GsonBuilder().registerTypeHierarchyAdapter(Player.class, new PlayerTypeAdaptor())
+		       .setPrettyPrinting()
+		       .enableComplexMapKeySerialization()
+		       .create();
 	}
 
 	public void createYmlFile(String name) {
@@ -40,7 +47,7 @@ public class MTfile {
 		if (!core.getDataFolder().exists()) {
 			core.getDataFolder().mkdir();
 		}
-		File jsonFile = new File(name + ".json");
+		File jsonFile = new File(core.getDataFolder(), name + ".json");
 		try {
 			if (!jsonFile.exists()) {
 				jsonFile.createNewFile();
@@ -55,7 +62,7 @@ public class MTfile {
 		if (!core.getDataFolder().exists()) {
 			core.getDataFolder().mkdir();
 		}
-		File textFile = new File(name + ".txt");
+		File textFile = new File(core.getDataFolder(), name + ".txt");
 		try {
 
 			if (!textFile.exists()) {
@@ -68,15 +75,25 @@ public class MTfile {
 		}
 	}
 	
-	public JSONObject getParsedJsonFile(String name) {
+	public <T> T getParsedJsonFile(String name, Type type) {
 		File file = new File(core.getDataFolder(), name + ".json");
-		try {
-			return (JSONObject) parser.parse(new FileReader(file));
-		} catch (IOException | ParseException e) {
-			throw new RuntimeException(String.format("Failure parsing file %s", name + ".json"), e);
+		try (FileReader fileReader = new FileReader(file)){
+			return gson.fromJson(fileReader, type);
+		} catch (JsonSyntaxException | JsonIOException | IOException e) {
+			throw new RuntimeException(String.format("An error occured while reading %s.json! %n Caused by: ", name), e);
 		}
 	}
 	
+	public void writeJsonToFile(String name, Object json) {
+		String jsonString = gson.toJson(json);
+		File file = new File(core.getDataFolder(), name + ".json");
+		
+		try (FileWriter writer = new FileWriter(file, false)){
+			writer.write(jsonString);
+		} catch (IOException e) {
+			throw new RuntimeException(String.format("An error occured while writing to %s.json! %n Caused by: ", name), e);
+		}
+	}
 	
 	public void saveFiles() {
 		

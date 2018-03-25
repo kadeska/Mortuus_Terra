@@ -6,6 +6,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.mortuusterra.MortuusTerraMain;
 import com.mortuusterra.communication.MTChatChannel;
+
 import net.md_5.bungee.api.ChatColor;
 
 public class MTCommunication implements Listener {
@@ -18,6 +19,7 @@ public class MTCommunication implements Listener {
 
 	@EventHandler
 	public void PlayerChatEvent(AsyncPlayerChatEvent e) {
+		
 		e.setCancelled(true);
 		if ((main.getCommunicationChannels().getChannel(e.getPlayer()) == MTChatChannel.NULL)) {
 			e.getPlayer().sendMessage(ChatColor.RED + "You must choose a channel before you can chat.");

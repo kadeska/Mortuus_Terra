@@ -16,9 +16,12 @@ import com.mortuusterra.listeners.MTPlayerListener;
 import com.mortuusterra.listeners.MTPower;
 import com.mortuusterra.managers.MTCommunicationChannels;
 import com.mortuusterra.managers.MTFalloutShelter;
+import com.mortuusterra.managers.MTInfect;
 import com.mortuusterra.managers.MTRadiation;
 import com.mortuusterra.managers.MTSupplyDrop;
+import com.mortuusterra.tasks.MTInfectTask;
 import com.mortuusterra.tasks.MTTimer;
+import com.mortuusterra.util.MTfile;
 
 public class MortuusTerraMain extends JavaPlugin {
 
@@ -38,14 +41,13 @@ public class MortuusTerraMain extends JavaPlugin {
 	private MTPower power;
 	private MTChunkListener chunkListener;
 	private MTMobListener mobListener;
-
-	public MortuusTerraMain() {
-		// TODO Auto-generated constructor stub
-	}
+	private MTInfectTask infectTask;
+	private MTInfect infect;
+	private MTfile fm;
 
 	@Override
 	public void onEnable() {
-		// fm = new FileManager(this);
+		setFileManager(new MTfile(this));
 		cmd = new MTcommands(this);
 		getCommand("channel").setExecutor(cmd);
 		getCommand("mortuusterra").setExecutor(cmd);
@@ -73,6 +75,11 @@ public class MortuusTerraMain extends JavaPlugin {
 
 		mobListener = new MTMobListener(this);
 		getServer().getPluginManager().registerEvents(mobListener, this);
+		
+		setInfectTask(new MTInfectTask(this));
+		
+		infect = new MTInfect();
+		getServer().getPluginManager().registerEvents(infect, this);
 
 		// load this last
 		startSupplydrops();
@@ -80,10 +87,11 @@ public class MortuusTerraMain extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		for (Player p : getServer().getOnlinePlayers()) {
+		// Removed the kick because it gets called on /reload and is annoying. Bukkit kicks players anyways...
+		/* for (Player p : getServer().getOnlinePlayers()) {
 			p.sendMessage(ChatColor.DARK_RED + "Server is restarting. You will be kicked from the server!");
 			p.kickPlayer("Server restart, come back soon!");
-		}
+		}*/
 		stopSupplyDrops();
 	}
 
@@ -180,5 +188,21 @@ public class MortuusTerraMain extends JavaPlugin {
 
 	public void setDebugMode(boolean debugMode) {
 		MortuusTerraMain.debugMode = debugMode;
+	}
+
+	public MTInfectTask getInfectTask() {
+		return infectTask;
+	}
+
+	public void setInfectTask(MTInfectTask infectTask) {
+		this.infectTask = infectTask;
+	}
+
+	public MTfile getFileManager() {
+		return fm;
+	}
+
+	public void setFileManager(MTfile fm) {
+		this.fm = fm;
 	}
 }

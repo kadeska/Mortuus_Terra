@@ -9,8 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
 import com.mortuusterra.MortuusTerraMain;
-import com.mortuusterra.event.MTRadiationDamageEvent;
 import com.mortuusterra.tasks.MTTimer;
 
 public class MTRadiation {
@@ -22,7 +22,7 @@ public class MTRadiation {
 	private ArrayList<MTGeck> MTGeckList = new ArrayList<MTGeck>();
 	private ArrayList<MTGenerator> MTGeneratorList = new ArrayList<MTGenerator>();
 
-	private MTRadiationDamageEvent event;
+	//private MTRadiationDamageEvent event;
 
 	public MTRadiation(MortuusTerraMain m) {
 		this.main = m;

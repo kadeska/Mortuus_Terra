@@ -6,6 +6,7 @@ import org.bukkit.scheduler.BukkitTask;
 import com.mortuusterra.MortuusTerraMain;
 
 public abstract class MTTimer {
+	private MTTimer mtTimer = this;
 	private MortuusTerraMain main;
 	private BukkitTask timer;
 
@@ -15,14 +16,14 @@ public abstract class MTTimer {
 			timer = new BukkitRunnable() {
 				@Override
 				public void run() {
-					run();
+					mtTimer.run();
 				}
 			}.runTaskTimerAsynchronously(main, delay, period);
 		} else {
 			timer = new BukkitRunnable() {
 				@Override
 				public void run() {
-					run();
+					mtTimer.run();
 				}
 			}.runTaskTimer(main, delay, period);
 		}

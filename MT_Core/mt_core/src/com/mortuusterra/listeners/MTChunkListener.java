@@ -8,11 +8,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.mortuusterra.MortuusTerraMain;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.world.DataException;
-
-import com.mortuusterra.MortuusTerraMain;
-import com.mortuusterra.tasks.MTTimer;
 
 public class MTChunkListener implements Listener {
 
