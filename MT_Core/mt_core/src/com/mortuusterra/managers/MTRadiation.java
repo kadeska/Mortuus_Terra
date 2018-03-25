@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.mortuusterra.MortuusTerraMain;
+import com.mortuusterra.event.MTRadiationDamageEvent;
 import com.mortuusterra.tasks.MTTimer;
 
 public class MTRadiation {
@@ -31,12 +32,7 @@ public class MTRadiation {
 	public void addPlayer(Player p) {
 		MTRadiationDamageEvent event = new MTRadiationDamageEvent(p);
 		// main.notifyConsol("test");
-<<<<<<< HEAD:MT_Core/mt_core/src/main/java/com/mortuusterra/manager/MTRadiation.java
-		map.put(p, new MTTimer(main, true, 20, 60) {
-			
-=======
 		map.put(p, new MTTimer(main, false, 20, 60) {
->>>>>>> 3f08fa9a5920780240c9404e819090d48c170e7a:MT_Core/mt_core/src/com/mortuusterra/managers/MTRadiation.java
 
 			@Override
 			public void run() {

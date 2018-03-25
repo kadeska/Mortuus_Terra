@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.bukkit.inventory.ItemStack"/>
-<fullyQualifiedTypeName name="org.bukkit.event.entity.EntityCombustEvent"/>
-<fullyQualifiedTypeName name="org.bukkit.entity.EntityType"/>
 <fullyQualifiedTypeName name="org.bukkit.event.EventHandler"/>
 <fullyQualifiedTypeName name="com.mortuusterra.listeners.MTChunkListener"/>
 <fullyQualifiedTypeName name="com.mortuusterra.listeners.MTMobListener"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
 <fullyQualifiedTypeName name="com.kadeska.game.main.level.tile.BasicTile"/>
 <fullyQualifiedTypeName name="com.kadeska.game.main.gfx.Colours"/>
+<fullyQualifiedTypeName name="org.bukkit.plugin.java.JavaPlugin"/>
+<fullyQualifiedTypeName name="org.bukkit.ChatColor"/>
+<fullyQualifiedTypeName name="org.bukkit.event.Event"/>
 </qualifiedTypeNameHistroy>

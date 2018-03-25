@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
-<<<<<<< HEAD:MT_Core/mt_core/src/com/mortuusterra/MortuusTerraMain.java
 import com.mortuusterra.commands.MTcommands;
 import com.mortuusterra.listeners.MTChunkListener;
 import com.mortuusterra.listeners.MTCommunication;
@@ -23,21 +22,6 @@ import com.mortuusterra.managers.MTSupplyDrop;
 import com.mortuusterra.tasks.MTInfectTask;
 import com.mortuusterra.tasks.MTTimer;
 import com.mortuusterra.util.MTfile;
-=======
-import main.java.com.mortuusterra.command.MTcommands;
-import main.java.com.mortuusterra.listener.MTChunkListener;
-import main.java.com.mortuusterra.listener.MTCommunication;
-import main.java.com.mortuusterra.listener.MTGeckListener;
-import main.java.com.mortuusterra.listener.MTGeneratorListener;
-import main.java.com.mortuusterra.listener.MTMobListener;
-import main.java.com.mortuusterra.listener.MTPlayerListener;
-import main.java.com.mortuusterra.listener.MTPower;
-import main.java.com.mortuusterra.manager.MTCommunicationChannels;
-import main.java.com.mortuusterra.manager.MTFalloutShelter;
-import main.java.com.mortuusterra.manager.MTRadiation;
-import main.java.com.mortuusterra.manager.MTSupplyDrop;
-import main.java.com.mortuusterra.manager.MTTimer;
->>>>>>> 700e479bc563f8ebc254cfa1657461bd95b5c450:MT_Core/mt_core/src/main/java/com/mortuusterra/MortuusTerraMain.java
 
 public class MortuusTerraMain extends JavaPlugin {
 
