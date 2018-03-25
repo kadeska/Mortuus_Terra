@@ -16,17 +16,21 @@ public class MTRadiationDamageEvent extends Event implements Cancellable {
 		this.damagedPlayer = player;
 	}
 
+	public Player getDamagedPlayer() {
+		return damagedPlayer;
+	}
+
 	public HandlerList getHandlers() {
 		return handlers;
 	}
-	
+
 	public boolean isCancelled() {
 		return cancelled;
 	}
 
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
-		
+
 	}
 
 }
