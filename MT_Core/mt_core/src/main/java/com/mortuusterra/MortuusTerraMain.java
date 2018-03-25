@@ -7,7 +7,6 @@ import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import main.java.com.mortuusterra.command.MTcommands;
-import main.java.com.mortuusterra.event.MTRadiationDamageEvent;
 import main.java.com.mortuusterra.listener.MTChunkListener;
 import main.java.com.mortuusterra.listener.MTCommunication;
 import main.java.com.mortuusterra.listener.MTGeckListener;

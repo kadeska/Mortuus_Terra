@@ -1,2 +1,7 @@
 /.metadata/
 /.recommenders/
+metadata
+.recommenders
+/game/
+/mt_world_generator/
+/src/

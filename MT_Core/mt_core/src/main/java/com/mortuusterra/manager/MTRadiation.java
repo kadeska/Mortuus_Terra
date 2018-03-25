@@ -26,9 +26,10 @@ public class MTRadiation {
 	}
 
 	public void addPlayer(Player p) {
+		MTRadiationDamageEvent event = new MTRadiationDamageEvent(p);
 		// main.notifyConsol("test");
 		map.put(p, new MTTimer(main, true, 20, 60) {
-			MTRadiationDamageEvent event = new MTRadiationDamageEvent(p);
+			
 
 			@Override
 			public void run() {
