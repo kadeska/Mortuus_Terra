@@ -1,7 +1,9 @@
-/.metadata/
-/.recommenders/
-metadata
-.recommenders
-/game/
-/mt_world_generator/
-/src/
+.metadata/
+.recommenders/
+game/
+mt_world_generator/
+
+.classpath
+.project
+
+bin/
