@@ -55,17 +55,27 @@ public class MTInfect implements Listener{
 	 * PLEASE NOTE: This method DOES NOT perform any logic!! It is the caller's duty to ensure the Player is not
 	 *              already infected! 
 	 * @param player The player to be infected
+	 * @param time The time for which the player should be infected
 	 * @return boolean Whether the task was completed successfully.
 	 */
-	public static boolean infectPlayer(Player player) {
+	public static boolean infectPlayer(Player player, long time) {
 		MTInfectEvent event = new MTInfectEvent(player);
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (!event.isCancelled()) {
-			infections.put(player, INFECTION_TIME + System.currentTimeMillis());
+			infections.put(player, time + System.currentTimeMillis());
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * @see infectPlayer(Player player, long time)
+	 * 
+	 *	Calls infectPlayer(Player player, long time) with INFECTION_TIME as the time.
+	 */
+	public static boolean infectPlayer(Player player) {
+		return infectPlayer(player, INFECTION_TIME);
 	}
 
 	/**
@@ -101,12 +111,12 @@ public class MTInfect implements Listener{
 			@Override
 			public void run() {
 				main.getFileManager().createJsonFile("infections");
-				Type type = new TypeToken<Map<Player, Long>>(){}.getType();
-				Map<Player, Long> map = main.getFileManager().getParsedJsonFile("infections", type);
+				Type type = new TypeToken<Map<UUID, Long>>(){}.getType();
+				Map<UUID, Long> map = main.getFileManager().getParsedJsonFile("infections", type);
 				
-				if (map.containsKey(e.getPlayer())) return;
+				if (map.containsKey(e.getPlayer().getUniqueId())) return;
 				
-				map.put(e.getPlayer(), infections.get(e.getPlayer()) - System.currentTimeMillis());
+				map.put(e.getPlayer().getUniqueId(), infections.get(e.getPlayer()) - System.currentTimeMillis());
 
 				main.getFileManager().writeJsonToFile("infections", map);
 			}
@@ -121,7 +131,6 @@ public class MTInfect implements Listener{
 			public void run() {
 				Type type = new TypeToken<Map<Player, Long>>(){}.getType();
 				Map<Player, Long> map = main.getFileManager().getParsedJsonFile("infections", type);
-				main.notifyConsole(map.keySet().toArray()[0].getClass().getSimpleName()+ "");
 				
 				if (!map.containsKey(e.getPlayer())) return; 
 				long remaining = map.get(e.getPlayer()).longValue();
