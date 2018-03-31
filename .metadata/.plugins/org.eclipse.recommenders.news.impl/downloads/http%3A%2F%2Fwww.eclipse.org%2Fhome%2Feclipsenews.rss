@@ -10,6 +10,22 @@
       <link>http://www.eclipse.org</link>
     </image>
     <item>
+      <title><![CDATA[Three days left to complete the Jakarta EE Survey!]]></title>
+      <link><![CDATA[https://www.surveymonkey.com/r/jakartaec]]></link>
+      <description><![CDATA[One week left to share your insights on Java EE and help shape the future of Jakarta EE.]]></description>
+      <pubDate>Mon, 27 Mar 2018 07:10:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
+      <title><![CDATA[Eclipse Newsletter | Code in Different Languages]]></title>
+      <link><![CDATA[https://www.eclipse.org/community/eclipse_newsletter/2018/march/]]></link>
+      <description><![CDATA[Read what's new in the Eclipse JDT Language Server and Eclipse PDT (PHP), then learn about Eclipse Xtext and Eclipse Mita (IoT).]]></description>
+      <pubDate>Thu, 22 Mar 2018 04:13:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
       <title><![CDATA[Complete the Jakarta EE Developer Survey]]></title>
       <link><![CDATA[https://www.surveymonkey.com/r/jakartaec]]></link>
       <description><![CDATA[Share your insights on Java EE and help shape the future of Jakarta EE.]]></description>
