@@ -76,26 +76,31 @@ public class MortuusTerraMain extends JavaPlugin {
 
 		mobListener = new MTMobListener(this);
 		getServer().getPluginManager().registerEvents(mobListener, this);
-		
+
 		setInfectTask(new MTInfectTask(this));
-		
+
 		infect = new MTInfect();
 		getServer().getPluginManager().registerEvents(infect, this);
 
 		MTScoreboardTask scTask = new MTScoreboardTask(this);
 		getServer().getPluginManager().registerEvents(scTask, this);
-		
+
 		// load this last
 		startSupplydrops();
 	}
 
 	@Override
 	public void onDisable() {
-		// Removed the kick because it gets called on /reload and is annoying. Bukkit kicks players anyways...
-		/* for (Player p : getServer().getOnlinePlayers()) {
-			p.sendMessage(ChatColor.DARK_RED + "Server is restarting. You will be kicked from the server!");
-			p.kickPlayer("Server restart, come back soon!");
-		}*/
+		/*
+		 * for (Player p : getServer().getOnlinePlayers()) {
+		 * p.sendMessage(ChatColor.DARK_RED +
+		 * "Server is restarting. You will be kicked from the server!");
+		 * p.kickPlayer("Server restart, come back soon!"); }
+		 */
+
+		// ToDo: Need to save all online players to a file and then load in the players
+		// from file onEnable. Or check when the server is reloaded save the players
+		// then reload the players in the MT Hashmaps
 		stopSupplyDrops();
 	}
 
@@ -146,7 +151,7 @@ public class MortuusTerraMain extends JavaPlugin {
 		}
 		mttimer.stop();
 	}
-	
+
 	public void callEvent(Event event) {
 		Bukkit.getServer().getPluginManager().callEvent(event);
 	}
