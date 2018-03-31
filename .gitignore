@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /.metadata/
 /.recommenders/
 metadata
@@ -6,3 +7,14 @@ metadata
 /mt_world_generator/
 /src/
 /IslandDefense/
+=======
+.metadata/
+.recommenders/
+game/
+mt_world_generator/
+
+.classpath
+.project
+
+bin/
+>>>>>>> b70cf9bf2277144c671d3ffbc26c573820417844
