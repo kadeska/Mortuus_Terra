@@ -20,6 +20,7 @@ import com.mortuusterra.managers.MTInfect;
 import com.mortuusterra.managers.MTRadiation;
 import com.mortuusterra.managers.MTSupplyDrop;
 import com.mortuusterra.tasks.MTInfectTask;
+import com.mortuusterra.tasks.MTScoreboardTask;
 import com.mortuusterra.tasks.MTTimer;
 import com.mortuusterra.util.MTfile;
 
@@ -81,6 +82,9 @@ public class MortuusTerraMain extends JavaPlugin {
 		infect = new MTInfect();
 		getServer().getPluginManager().registerEvents(infect, this);
 
+		MTScoreboardTask scTask = new MTScoreboardTask(this);
+		getServer().getPluginManager().registerEvents(scTask, this);
+		
 		// load this last
 		startSupplydrops();
 	}

@@ -51,6 +51,9 @@ public class MTfile {
 		try {
 			if (!jsonFile.exists()) {
 				jsonFile.createNewFile();
+				FileWriter fw = new FileWriter(jsonFile);
+				fw.write("{}");
+				fw.close();
 			}
 		} catch (IOException e) {
 			core.notifyConsole("Could not create the " + name + ".json file");
