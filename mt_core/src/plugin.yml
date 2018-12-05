@@ -1,0 +1,16 @@
+main: com.mortuusterra.MortuusTerraMain
+name: MortuusTerra
+version: 1.1.1
+api-vversion: 1.13
+author: Kadeska23
+depends: []
+softdepends: []
+database: false
+description: Plugin for Mortuus Terra 
+commands:
+  channel:
+    description: Base command for selecting a chat channel
+    usage: /channel
+  mortuusterra:
+    description: Base command for mortuusterra
+    usage: /mortuusterra

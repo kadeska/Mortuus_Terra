@@ -1,3 +1,0 @@
-Mortuus Terra Plugin
-
-Fix generators, they should be working right now but they are not. 
