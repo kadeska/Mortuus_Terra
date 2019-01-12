@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import com.mortuusterra.MortuusTerraMain;
@@ -21,6 +22,9 @@ public class MTcommands implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {
+			if(sender instanceof ConsoleCommandSender) {
+				
+			}
 			sender.sendMessage("Commands are only available from ingame!");
 			return false;
 		}
