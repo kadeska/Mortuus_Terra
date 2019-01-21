@@ -6,86 +6,86 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mortuusterra.commands.MTcommands;
-import com.mortuusterra.listeners.MTChunkListener;
-import com.mortuusterra.listeners.MTCommunication;
-import com.mortuusterra.listeners.MTGeckListener;
-import com.mortuusterra.listeners.MTGeneratorListener;
-import com.mortuusterra.listeners.MTMobListener;
-import com.mortuusterra.listeners.MTPlayerListener;
-import com.mortuusterra.listeners.MTPower;
-import com.mortuusterra.managers.MTCommunicationChannels;
-import com.mortuusterra.managers.MTFalloutShelter;
-import com.mortuusterra.managers.MTInfect;
-import com.mortuusterra.managers.MTRadiation;
-import com.mortuusterra.managers.MTSupplyDrop;
-import com.mortuusterra.tasks.MTInfectTask;
-import com.mortuusterra.tasks.MTRadiationTask;
-import com.mortuusterra.tasks.MTScoreboardTask;
-import com.mortuusterra.tasks.MTTimer;
-import com.mortuusterra.util.MTfile;
+import com.mortuusterra.listeners.ChunkListener;
+import com.mortuusterra.listeners.CommunicationListener;
+import com.mortuusterra.listeners.GeckListener;
+import com.mortuusterra.listeners.GeneratorListener;
+import com.mortuusterra.listeners.MobListener;
+import com.mortuusterra.listeners.PlayerListener;
+import com.mortuusterra.listeners.PowerListener;
+import com.mortuusterra.managers.CommunicationChannelsManager;
+import com.mortuusterra.managers.FalloutShelterManager;
+import com.mortuusterra.managers.InfectManager;
+import com.mortuusterra.managers.RadiationManager;
+import com.mortuusterra.managers.SupplyDropManager;
+import com.mortuusterra.managers.CommandsManager;
+import com.mortuusterra.tasks.InfectTask;
+import com.mortuusterra.tasks.RadiationTask;
+import com.mortuusterra.tasks.ScoreboardTask;
+import com.mortuusterra.tasks.TimerTask;
+import com.mortuusterra.util.Data;
 
 public class MortuusTerraMain extends JavaPlugin {
 
 	private static boolean debugMode = false;
 
 	// private FileManager fm;
-	private MTcommands cmd;
-	private MTCommunicationChannels communicationChannels;
-	private MTRadiation rad;
-	private MTTimer mttimer;
-	private MTFalloutShelter shelterManager;
+	private CommandsManager cmd;
+	private CommunicationChannelsManager communicationChannels;
+	private RadiationManager rad;
+	private TimerTask mttimer;
+	private FalloutShelterManager shelterManager;
 
-	private MTPlayerListener pl;
-	private MTCommunication communicationListener;
-	private MTGeckListener geck;
-	private MTGeneratorListener genListener;
-	private MTPower power;
-	private MTChunkListener chunkListener;
-	private MTMobListener mobListener;
-	private MTInfectTask infectTask;
-	private MTInfect infect;
-	private MTfile fm;
-	private MTRadiationTask mtradtask;
+	private PlayerListener pl;
+	private CommunicationListener communicationListener;
+	private GeckListener geck;
+	private GeneratorListener genListener;
+	private PowerListener power;
+	private ChunkListener chunkListener;
+	private MobListener mobListener;
+	private InfectTask infectTask;
+	private InfectManager infect;
+	private Data fm;
+	private RadiationTask mtradtask;
 
 	@Override
 	public void onEnable() {
-		setFileManager(new MTfile(this));
-		cmd = new MTcommands(this);
+		setFileManager(new Data(this));
+		cmd = new CommandsManager(this);
 		getCommand("channel").setExecutor(cmd);
 		getCommand("mortuusterra").setExecutor(cmd);
-		communicationChannels = new MTCommunicationChannels(this);
-		rad = new MTRadiation(this);
+		communicationChannels = new CommunicationChannelsManager(this);
+		rad = new RadiationManager(this);
 		//shelterManager = new MTFalloutShelter();
 
-		power = new MTPower(this);
+		power = new PowerListener(this);
 		getServer().getPluginManager().registerEvents(power, this);
 
-		pl = new MTPlayerListener(this);
+		pl = new PlayerListener(this);
 		getServer().getPluginManager().registerEvents(pl, this);
 
-		geck = new MTGeckListener(this);
+		geck = new GeckListener(this);
 		getServer().getPluginManager().registerEvents(geck, this);
 
-		genListener = new MTGeneratorListener(this);
+		genListener = new GeneratorListener(this);
 		getServer().getPluginManager().registerEvents(genListener, this);
 
-		communicationListener = new MTCommunication(this);
+		communicationListener = new CommunicationListener(this);
 		getServer().getPluginManager().registerEvents(communicationListener, this);
 
-		chunkListener = new MTChunkListener(this);
+		chunkListener = new ChunkListener(this);
 		getServer().getPluginManager().registerEvents(chunkListener, this);
 
-		mobListener = new MTMobListener(this);
+		mobListener = new MobListener(this);
 		getServer().getPluginManager().registerEvents(mobListener, this);
 
-		setInfectTask(new MTInfectTask(this));
+		setInfectTask(new InfectTask(this));
 
-		infect = new MTInfect();
+		infect = new InfectManager();
 		getServer().getPluginManager().registerEvents(infect, this);
 		
 
-		MTScoreboardTask scTask = new MTScoreboardTask(this);
+		ScoreboardTask scTask = new ScoreboardTask(this);
 		getServer().getPluginManager().registerEvents(scTask, this);
 
 		// load this last
@@ -109,7 +109,7 @@ public class MortuusTerraMain extends JavaPlugin {
 
 	private void startSupplydrops() {
 		// start server anouncment
-		mttimer = new MTTimer(getCore(), false, 0, 1) {
+		mttimer = new TimerTask(getCore(), false, 0, 1) {
 			double timePassed = 0.0;
 			// 3 1/2 hours (252000 ticks)
 			int time = 252000;
@@ -128,7 +128,7 @@ public class MortuusTerraMain extends JavaPlugin {
 				// if the time has passed then deliver the supply drop
 				if (timePassed >= time) {
 					// mtsupplydrop = null;
-					new MTSupplyDrop(getCore().getServer().getWorld("world"), getCore());
+					new SupplyDropManager(getCore().getServer().getWorld("world"), getCore());
 				}
 				timePassed++;
 			}
@@ -167,30 +167,30 @@ public class MortuusTerraMain extends JavaPlugin {
 		return this;
 	}
 
-	public MTFalloutShelter getShelterManager() {
+	public FalloutShelterManager getShelterManager() {
 		return shelterManager;
 	}
 
-	public MTcommands getCommands() {
+	public CommandsManager getCommands() {
 		return cmd;
 	}
 	/*
 	 * public FileManager getFileManager() { return fm; }
 	 */
 
-	public MTTimer getMttimer() {
+	public TimerTask getMttimer() {
 		return mttimer;
 	}
 
-	public MTCommunicationChannels getCommunicationChannels() {
+	public CommunicationChannelsManager getCommunicationChannels() {
 		return communicationChannels;
 	}
 
-	public MTRadiation getRad() {
+	public RadiationManager getRad() {
 		return rad;
 	}
 
-	public MTPlayerListener getPl() {
+	public PlayerListener getPl() {
 		return pl;
 	}
 
@@ -202,19 +202,19 @@ public class MortuusTerraMain extends JavaPlugin {
 		MortuusTerraMain.debugMode = debugMode;
 	}
 
-	public MTInfectTask getInfectTask() {
+	public InfectTask getInfectTask() {
 		return infectTask;
 	}
 
-	public void setInfectTask(MTInfectTask infectTask) {
+	public void setInfectTask(InfectTask infectTask) {
 		this.infectTask = infectTask;
 	}
 
-	public MTfile getFileManager() {
+	public Data getFileManager() {
 		return fm;
 	}
 
-	public void setFileManager(MTfile fm) {
+	public void setFileManager(Data fm) {
 		this.fm = fm;
 	}
 }
