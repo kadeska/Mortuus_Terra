@@ -13,3 +13,8 @@ mt_world_generator/
 .classpath
 .project
 bin/
+.settings
+/.settings/
+target
+/target/
+
