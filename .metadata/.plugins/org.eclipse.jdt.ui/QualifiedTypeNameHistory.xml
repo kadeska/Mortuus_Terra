@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="org.bukkit.entity.Player"/>
-<fullyQualifiedTypeName name="org.bukkit.GameMode"/>
-<fullyQualifiedTypeName name="com.mortuusterra.MortuusTerraMain"/>
-<fullyQualifiedTypeName name="org.bukkit.Material"/>
-<fullyQualifiedTypeName name="com.mortuusterra.tasks.MTRadiationTask"/>
-</qualifiedTypeNameHistroy>
