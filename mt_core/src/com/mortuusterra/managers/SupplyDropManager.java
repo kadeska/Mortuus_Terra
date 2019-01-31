@@ -61,7 +61,7 @@ public class SupplyDropManager {
 
 	private void spawnChestAt(Location l) {
 		l.getBlock().setType(Material.CHEST);
-		chest = (Chest) l.getBlock().getState();
+		chest = (Chest) l.getBlock();
 		chest.setCustomName("Supply Drop");
 		chest.update();
 		chest.getInventory().addItem(new ItemStack(Material.APPLE, 1));
@@ -76,22 +76,17 @@ public class SupplyDropManager {
 	}
 
 	private void start(Location location) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				for (int i = 0; i <= 3; i++) {
-					world.strikeLightningEffect(location);
-					world.createExplosion(location, 1);
-				}
-				Location l = new Location(world, location.getX(), world.getHighestBlockYAt(location), location.getZ());
-				BlockFace[] faces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP,
-						BlockFace.DOWN };
-				for (BlockFace f : faces) {
-					l.getBlock().getRelative(f).setType(Material.MOSSY_COBBLESTONE);
-				}
-				spawnChestAt(l);
-			}
-		}.runTask(main);
+		for (int i = 0; i <= 3; i++) {
+			world.strikeLightningEffect(location);
+			world.createExplosion(location, 1); //problem line
+		}
+		Location l = new Location(world, location.getX(), world.getHighestBlockYAt(location), location.getZ());
+		BlockFace[] faces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP,
+				BlockFace.DOWN };
+		for (BlockFace f : faces) {
+			l.getBlock().getRelative(f).setType(Material.MOSSY_COBBLESTONE);
+		}
+		spawnChestAt(l);
 		return;
 	}
 

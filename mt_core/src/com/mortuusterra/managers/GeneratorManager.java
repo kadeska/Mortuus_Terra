@@ -181,13 +181,13 @@ public class GeneratorManager {
 
 	public void startGenerator() {
 		this.busy = true;
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		//new BukkitRunnable() {
+			//@Override
+			//public void run() {
 				if(u < 0 || u > 11) {
-					cancel();
+					//cancel();
 					//u = 0;
-					//return;
+					return;
 				}
 				if (u == 0) {
 					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + "0 "
@@ -206,11 +206,12 @@ public class GeneratorManager {
 
 					gen.setValid(true);
 					gen.startWaitForCoal();
-					cancel();
+					//cancel();
+					return;
 				}
-			}
+			//}
 
-		}.runTaskTimerAsynchronously(main, 0, 30);
+		//}.runTaskTimerAsynchronously(main, 0, 30);
 		u = 0;
 		this.busy = false;
 	}
@@ -218,13 +219,13 @@ public class GeneratorManager {
 	public void stopGenerator() {
 		this.busy = true;
 		this.run.cancel();
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		//new BukkitRunnable() {
+			//@Override
+			//public void run() {
 				if(d < 0 || d > 11) {
 					//d = 10;
-					cancel();
-					//return;
+					//cancel();
+					return;
 				}
 				if (d == 10) {
 					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
@@ -244,36 +245,36 @@ public class GeneratorManager {
 					gen.setValid(false);
 					breakLamp();
 					main.getRad().removeGenerator(gen);
-					cancel();
-					//return;
+					//cancel();
+					return;
 				}
-			}
+			//}
 
-		}.runTaskTimerAsynchronously(main, 0, 30);
+		//}.runTaskTimerAsynchronously(main, 0, 30);
 		d = 10;
 		this.busy = false;
 	}
 
 	private void updateLamp(Material lamp) {
 		this.busy = true;
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		//new BukkitRunnable() {
+			//@Override
+			//public void run() {
 				gen.lamp.setType(lamp);
-			}
-		}.runTask(main);
+			//}
+		//}.runTask(main);
 		this.busy = false;
 	}
 
 	private void breakLamp() {
 		this.busy = true;
-		new BukkitRunnable() {
+		//new BukkitRunnable() {
 
-			@Override
-			public void run() {
+			//@Override
+			//public void run() {
 				gen.lamp.breakNaturally();
-			}
-		}.runTask(main);
+			//}
+		//}.runTask(main);
 		this.busy = false;
 	}
 

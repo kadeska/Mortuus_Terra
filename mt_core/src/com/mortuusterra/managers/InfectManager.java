@@ -106,10 +106,10 @@ public class InfectManager implements Listener{
 	public void onLeave(PlayerQuitEvent e) {
 		if (!infections.containsKey(e.getPlayer())) return;
 
-		// Do this async!
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		/// Do this async!
+		//new BukkitRunnable() {
+			//@Override
+			//public void run() {
 				main.getFileManager().createJsonFile("infections");
 				Type type = new TypeToken<Map<UUID, Long>>(){}.getType();
 				Map<UUID, Long> map = main.getFileManager().getParsedJsonFile("infections", type);
@@ -119,16 +119,16 @@ public class InfectManager implements Listener{
 				map.put(e.getPlayer().getUniqueId(), infections.get(e.getPlayer()) - System.currentTimeMillis());
 
 				main.getFileManager().writeJsonToFile("infections", map);
-			}
-		}.runTaskAsynchronously(main);
+			//}
+		//}.runTaskAsynchronously(main);
 	}
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		main.getFileManager().createJsonFile("infections");
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		//new BukkitRunnable() {
+			//@Override
+			//public void run() {
 				Type type = new TypeToken<Map<Player, Long>>(){}.getType();
 				Map<Player, Long> map = main.getFileManager().getParsedJsonFile("infections", type);
 				
@@ -138,8 +138,8 @@ public class InfectManager implements Listener{
 				Bukkit.getScheduler().scheduleSyncDelayedTask(main, 
 						() -> infections.put(e.getPlayer(), System.currentTimeMillis() + remaining));
 				
-			}
-		}.runTaskAsynchronously(main);
+			//}
+		//}.runTaskAsynchronously(main);
 	}
 
 	@EventHandler

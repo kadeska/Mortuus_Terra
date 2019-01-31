@@ -107,7 +107,7 @@ public class MortuusTerraMain extends JavaPlugin {
 		stopSupplyDrops();
 	}
 
-	private void startSupplydrops() {
+	private void startSupplydrops() { // The clock/timing in this needs to be fixed. It's not correct.
 		// start server anouncment
 		mttimer = new TimerTask(getCore(), false, 0, 1) {
 			double timePassed = 0.0;

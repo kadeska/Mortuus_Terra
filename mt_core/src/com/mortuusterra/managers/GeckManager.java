@@ -26,15 +26,15 @@ public class GeckManager {
 		this.owner = owner;
 		this.geckLocation = l;
 		this.world = l.getWorld();
-		new TimerTask(main, true, 10, 40) {
-			@Override
-			public void run() {
+		//new TimerTask(main, true, 10, 40) {
+			//@Override
+			//public void run() {
 				if (!scan()) {
 					chargeDown();
-					stop();
+					//stop();
 				}
-			}
-		};
+			//}
+		//};
 	}
 
 	public World getWorld() {
@@ -89,13 +89,13 @@ public class GeckManager {
 	}
 
 	public void chargeUp() {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		//new BukkitRunnable() {
+			//@Override
+			//public void run() {
 				if (u < 0 || u > 11) {
 					// u = 0;
-					cancel();
-					// return;
+					//cancel();
+					return;
 				}
 				if (u == 0) {
 					owner.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
@@ -109,22 +109,23 @@ public class GeckManager {
 							ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
 					owner.sendMessage(ChatColor.BLUE + "GECK is now compleatly pwered up!");
 					setPowered(true);
-					cancel();
+					//cancel();
+					return;
 				}
-			}
+			//}
 
-		}.runTaskTimerAsynchronously(main, 0, 30);
+		//}.runTaskTimerAsynchronously(main, 0, 30);
 		u = 0;
 	}
 
 	public void chargeDown() {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		//new BukkitRunnable() {
+			//@Override
+			//public void run() {
 				if (d < 0 || d > 11) {
 					// d = 10;
-					cancel();
-					// return;
+					//cancel();
+					return;
 				}
 				if (d == 10) {
 
@@ -140,11 +141,12 @@ public class GeckManager {
 					owner.sendMessage(
 							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "GECK is now compleatly powered down!");
 					setPowered(false);
-					cancel();
+					//cancel();
+					return;
 				}
-			}
+			//}
 
-		}.runTaskTimerAsynchronously(main, 0, 30);
+		//}.runTaskTimerAsynchronously(main, 0, 30);
 		d = 10;
 		main.getRad().removeGeck(this);
 	}

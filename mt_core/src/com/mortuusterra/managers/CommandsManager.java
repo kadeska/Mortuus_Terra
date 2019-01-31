@@ -30,6 +30,10 @@ public class CommandsManager implements CommandExecutor {
 		}
 
 		Player p = (Player) sender;
+		
+		if (cmd.getName().equalsIgnoreCase("spawndrop")) {
+			// spawn a supply drop
+		}
 
 		if (cmd.getName().equalsIgnoreCase("mortuusterra")) {
 			if (args.length == 1) {

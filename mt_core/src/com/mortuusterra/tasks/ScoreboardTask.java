@@ -45,9 +45,9 @@ public class ScoreboardTask extends TimerTask implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		
-		new BukkitRunnable(){
-			@Override
-			public void run() {
+		//new BukkitRunnable(){
+			//@Override
+			//public void run() {
 				m.getFileManager().createJsonFile("kills");
 				Type type = new TypeToken<Map<UUID, Integer>>(){}.getType();
 				Map<UUID, Integer> map = m.getFileManager().getParsedJsonFile("kills", type);
@@ -57,8 +57,8 @@ public class ScoreboardTask extends TimerTask implements Listener {
 				
 				m.getFileManager().writeJsonToFile("kills", map);
 				scores.remove(event.getPlayer());
-			}
-		}.runTaskAsynchronously(m);
+			//}
+		//}.runTaskAsynchronously(m);
 	}
 	
 	@EventHandler
@@ -72,9 +72,9 @@ public class ScoreboardTask extends TimerTask implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		new BukkitRunnable(){
-			@Override
-			public void run() {
+		//new BukkitRunnable(){
+			//@Override
+			//public void run() {
 				m.getFileManager().createJsonFile("kills");
 				Type type =  new TypeToken<Map<Player, Integer>>(){}.getType();
 				Map<Player, Integer> map = m.getFileManager().getParsedJsonFile("kills", type);
@@ -82,8 +82,8 @@ public class ScoreboardTask extends TimerTask implements Listener {
 				
 				int score = map.get(event.getPlayer());
 				scores.put(event.getPlayer(), score);
-			}
-		}.runTaskAsynchronously(m);
+		//	}
+		//}.runTaskAsynchronously(m);
 		event.getPlayer().setScoreboard(sc);
 	}
 	
