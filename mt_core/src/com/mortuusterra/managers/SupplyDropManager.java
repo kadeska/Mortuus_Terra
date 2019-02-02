@@ -74,13 +74,14 @@ public class SupplyDropManager {
 		chest.setCustomName("Supply Drop");
 		chest.update();
 		chest.getInventory().addItem(new ItemStack(Material.APPLE, 1));
+		*/
 		for (Player p : main.getServer().getOnlinePlayers()) {
 			p.sendMessage(ChatColor.RED + "!!ANOUNCMENT!!"
 					+ (ChatColor.BLUE + " SupplyDrop has been dropped at: " + ChatColor.GOLD + "X" + ChatColor.GRAY
 							+ " = " + ChatColor.YELLOW + (int) l.getX() + ChatColor.GRAY + ", " + ChatColor.GOLD + "Y"
 							+ ChatColor.GRAY + " = " + ChatColor.YELLOW + (int) l.getY() + ChatColor.GRAY + ", "
 							+ ChatColor.GOLD + "Z" + ChatColor.GRAY + " = " + ChatColor.YELLOW + (int) l.getZ()));
-		}*/
+		}
 		return;
 	}
 
