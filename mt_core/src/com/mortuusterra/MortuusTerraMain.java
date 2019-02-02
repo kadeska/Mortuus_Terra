@@ -35,6 +35,7 @@ public class MortuusTerraMain extends JavaPlugin {
 	private RadiationManager rad;
 	private TimerTask mttimer;
 	private FalloutShelterManager shelterManager;
+	private SupplyDropManager supplyDropManager;
 
 	private PlayerListener pl;
 	private CommunicationListener communicationListener;
@@ -88,6 +89,8 @@ public class MortuusTerraMain extends JavaPlugin {
 		ScoreboardTask scTask = new ScoreboardTask(this);
 		getServer().getPluginManager().registerEvents(scTask, this);
 
+		supplyDropManager = new SupplyDropManager();
+		
 		// load this last
 		startSupplydrops();
 	}
@@ -109,14 +112,14 @@ public class MortuusTerraMain extends JavaPlugin {
 
 	private void startSupplydrops() { // The clock/timing in this needs to be fixed. It's not correct.
 		// start server anouncment
-		mttimer = new TimerTask(getCore(), false, 0, 1) {
-			double timePassed = 0.0;
-			// 3 1/2 hours (252000 ticks)
-			int time = 252000;
+		mttimer = new TimerTask(getCore(), false, 0, 6000) {
+			/*double timePassed = 0.0;
+			/// 3 1/2 hours (252000 ticks)
+			int time = 252000;*/
 
 			@Override
 			public void run() {
-				// Message every hour
+				/*// Message every hour
 				if (timePassed % 72000 == 0) {
 					announceServer();
 				}
@@ -130,10 +133,12 @@ public class MortuusTerraMain extends JavaPlugin {
 					// mtsupplydrop = null;
 					new SupplyDropManager(getCore().getServer().getWorld("world"), getCore());
 				}
-				timePassed++;
+				timePassed++;*/
+				
+				supplyDropManager.drop(getCore().getServer().getWorld("world"), getCore());
 			}
 
-			private void announceServer() {
+			/*private void announceServer() {
 				int seconds = (int) ((time - timePassed) / 20);
 				int minutes = (int) (seconds / 60);
 				int hours = (int) (minutes / 60);
@@ -144,7 +149,7 @@ public class MortuusTerraMain extends JavaPlugin {
 									+ " Hours, " + ChatColor.GOLD + minutes + ChatColor.YELLOW + " Minutes, "
 									+ ChatColor.GOLD + seconds + ChatColor.YELLOW + " Seconds."));
 				}
-			}
+			}*/
 		};
 	}
 

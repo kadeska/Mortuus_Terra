@@ -6,11 +6,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import com.mortuusterra.MortuusTerraMain;
 
@@ -18,12 +18,19 @@ public class SupplyDropManager {
 	private MortuusTerraMain main;
 	private World world;
 	private Chest chest;
+	private Block chestBlock;
 	private Location l;
 
-	public SupplyDropManager(World world, MortuusTerraMain m) {
+	public SupplyDropManager() {
+		
+	}
+	
+	public void drop(World world, MortuusTerraMain m) {
 		this.main = m;
 		this.world = world;
 		l = makeLocation();
+		//location is only null if there are no players online. 
+		if(l == null) return;
 		start(l);
 	}
 
@@ -37,6 +44,7 @@ public class SupplyDropManager {
 	 *         player online then shift the location away from the player
 	 */
 	private Location makeLocation() {
+		if(main.getServer().getOnlinePlayers().size() == 0) return null;
 		ArrayList<Integer> Xlist = new ArrayList<Integer>();
 		ArrayList<Integer> Zlist = new ArrayList<Integer>();
 		int aX = 0;
@@ -61,7 +69,8 @@ public class SupplyDropManager {
 
 	private void spawnChestAt(Location l) {
 		l.getBlock().setType(Material.CHEST);
-		chest = (Chest) l.getBlock();
+		/*chestBlock = l.getBlock(); 
+		chest = (Chest) chestBlock;
 		chest.setCustomName("Supply Drop");
 		chest.update();
 		chest.getInventory().addItem(new ItemStack(Material.APPLE, 1));
@@ -71,7 +80,7 @@ public class SupplyDropManager {
 							+ " = " + ChatColor.YELLOW + (int) l.getX() + ChatColor.GRAY + ", " + ChatColor.GOLD + "Y"
 							+ ChatColor.GRAY + " = " + ChatColor.YELLOW + (int) l.getY() + ChatColor.GRAY + ", "
 							+ ChatColor.GOLD + "Z" + ChatColor.GRAY + " = " + ChatColor.YELLOW + (int) l.getZ()));
-		}
+		}*/
 		return;
 	}
 
