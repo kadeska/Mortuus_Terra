@@ -107,13 +107,12 @@ public class GeneratorListener implements Listener {
 	public void furnacBreak(BlockBreakEvent e) {
 		if (e.getBlock().getType().equals(Material.FURNACE)) {
 			if (main.getRad().containsGenerator(e.getBlock().getLocation())) {
-				GeneratorManager gen = main.getRad().getGenerator(e.getBlock().getLocation());
-				if (gen.isBusy()) {
+				if (main.getRad().getGenerator(e.getBlock().getLocation()).isBusy()) {
 					e.setCancelled(true);
 					e.getPlayer().sendMessage("This generator is busy, please wait!");
 					return;
 				}
-				gen.stopGenerator();
+				main.getRad().getGenerator(e.getBlock().getLocation()).stopGenerator();
 			}
 		}
 	}
@@ -123,13 +122,12 @@ public class GeneratorListener implements Listener {
 		if (e.getBlock().getType().equals(Material.REDSTONE_LAMP_ON)
 				|| e.getBlock().getType().equals(Material.REDSTONE_LAMP_OFF)) {
 			if (main.getRad().containsGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation())) {
-				GeneratorManager gen = main.getRad().getGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation());
-				if (gen.isBusy()) {
+				if (main.getRad().getGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation()).isBusy()) {
 					e.setCancelled(true);
 					e.getPlayer().sendMessage("This generator is busy, please wait!");
 					return;
 				}
-				gen.stopGenerator();
+				main.getRad().getGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation()).stopGenerator();
 			}
 		}
 	}

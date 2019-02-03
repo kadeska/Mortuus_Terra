@@ -117,7 +117,7 @@ public class GeneratorManager {
 				}
 
 			}
-		}.runTaskTimerAsynchronously(main, 10, 600);
+		}.runTaskTimer(main, 10, 600);
 	}
 
 	public boolean isBroken() {
@@ -137,7 +137,7 @@ public class GeneratorManager {
 	public boolean scan() {
 		this.busy = true;
 		new BukkitRunnable() {
-			@Override
+		    @Override
 			public void run() {
 				Block furnace = gen.getFurnace();
 				if (furnace.getRelative(BlockFace.UP).getType().equals(Material.REDSTONE_LAMP_OFF)) {
@@ -157,7 +157,7 @@ public class GeneratorManager {
 									gen.getOwner().sendMessage("Generator is not built corectly!");
 									stopGenerator();
 									gen.setValid(false);
-									return;
+									//return valid;
 								}
 							}
 							for (BlockFace f : ironFenceFaces) {
@@ -166,7 +166,7 @@ public class GeneratorManager {
 									gen.getOwner().sendMessage("Generator is not built corectly!");
 									stopGenerator();
 									gen.setValid(false);
-									return;
+									//return valid;
 								}
 							}
 						}
@@ -177,18 +177,18 @@ public class GeneratorManager {
 				gen.setValid(true);
 				gen.updateLamp(Material.REDSTONE_LAMP_ON);
 			}
-		}.runTaskAsynchronously(main);
+		}.runTask(main);
 		this.busy = false;
 		return valid;
 	}
 
 	public void startGenerator() {
 		this.busy = true;
-		// new BukkitRunnable() {
-		// @Override
-		// public void run() {
+		 new BukkitRunnable() {
+		 @Override
+		 public void run() {
 		if (u < 0 || u > 11) {
-			// cancel();
+			 cancel();
 			// u = 0;
 			return;
 		}
@@ -208,51 +208,53 @@ public class GeneratorManager {
 
 			gen.setValid(true);
 			gen.startWaitForCoal();
-			// cancel();
+			cancel();
 			return;
 		}
-		// }
+		 }
 
-		// }.runTaskTimerAsynchronously(main, 0, 30);
+		 }.runTaskTimer(main, 0, 30);
 		u = 0;
 		this.busy = false;
 	}
 
 	public void stopGenerator() {
 		this.busy = true;
-		this.run.cancel();
-		// new BukkitRunnable() {
-		// @Override
-		// public void run() {
-		if (d < 0 || d > 11) {
-			// d = 10;
-			// cancel();
-			return;
-		}
-		if (d == 10) {
-			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "100 "
-					+ ChatColor.GOLD + "%");
-		} else {
-			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + d + "0 "
-					+ ChatColor.GOLD + "%");
-		}
-		d--;
-		if (d <= 0) {
-			gen.getOwner().sendMessage(
-					ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
-			gen.getOwner().sendMessage(
-					ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now compleatly powered down!");
-			gen.updateLamp(Material.REDSTONE_LAMP_ON);
+		if (this.run != null)
+			this.run.cancel();
 
-			gen.setValid(false);
-			breakLamp();
-			main.getRad().removeGenerator(gen);
-			// cancel();
-			return;
-		}
-		// }
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (d < 0 || d > 11) {
+					// d = 10;
+					cancel();
+					return;
+				}
+				if (d == 10) {
+					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
+							+ "100 " + ChatColor.GOLD + "%");
+				} else {
+					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + d
+							+ "0 " + ChatColor.GOLD + "%");
+				}
+				d--;
+				if (d <= 0) {
+					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
+							+ "0 " + ChatColor.GOLD + "%");
+					gen.getOwner().sendMessage(ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE
+							+ "Generator is now compleatly powered down!");
+					gen.updateLamp(Material.REDSTONE_LAMP_ON);
 
-		// }.runTaskTimerAsynchronously(main, 0, 30);
+					gen.setValid(false);
+					breakLamp();
+					main.getRad().removeGenerator(gen);
+					 cancel();
+					return;
+				}
+			}
+
+		}.runTaskTimer(main, 0, 30);
 		d = 10;
 		this.busy = false;
 	}

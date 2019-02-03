@@ -14,8 +14,8 @@ import com.mortuusterra.tasks.TimerTask;
 
 public class GeckManager {
 	private MortuusTerraMain main;
-	private Boolean powered = false;
-	private boolean valid = false;
+	private Boolean powered;
+	private boolean valid;
 	private Location geckLocation; // sponge
 	private World world;
 	private Player owner;
@@ -26,15 +26,6 @@ public class GeckManager {
 		this.owner = owner;
 		this.geckLocation = l;
 		this.world = l.getWorld();
-		//new TimerTask(main, true, 10, 40) {
-			//@Override
-			//public void run() {
-				if (!scan()) {
-					chargeDown();
-					//stop();
-				}
-			//}
-		//};
 	}
 
 	public World getWorld() {
@@ -66,32 +57,42 @@ public class GeckManager {
 	}
 
 	public boolean scan() {
-		if (!main.getRad().containsGeck(this)) {
-			return false;
+		new TimerTask(main, true, 10, 40) {
+			@Override
+			public void run() {
+		if (!main.getRad().containsGeck(GeckManager.this)) {
+			stop();
 		}
 		Block sponge = geckLocation.getBlock();
 		// is there a generator in range.
 		if (!main.getRad().isInGeneratorRange(sponge)) {
 			owner.sendMessage("There is no generator in range, shutting down!");
+			setValid(false);
 			chargeDown();
-			return false;
+			stop();
 		}
 		BlockFace[] faces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH };
 		for (BlockFace f : faces) {
 			// are there pistons on the 4 horizontal sides of the sponge
 			if (!sponge.getRelative(f).getType().equals(Material.PISTON_BASE)) {
 				owner.sendMessage("The GECK is broken, shutting down!");
+				setValid(false);
 				chargeDown();
-				return false;
+				stop();
 			}
 		}
-		return true;
+		setValid(true);
+		
+			}
+		};
+		
+		return valid;
 	}
 
 	public void chargeUp() {
-		//new BukkitRunnable() {
-			//@Override
-			//public void run() {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
 				if (u < 0 || u > 11) {
 					// u = 0;
 					//cancel();
@@ -112,16 +113,16 @@ public class GeckManager {
 					//cancel();
 					return;
 				}
-			//}
+			}
 
-		//}.runTaskTimerAsynchronously(main, 0, 30);
+		}.runTaskTimer(main, 0, 30);
 		u = 0;
 	}
 
 	public void chargeDown() {
-		//new BukkitRunnable() {
-			//@Override
-			//public void run() {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
 				if (d < 0 || d > 11) {
 					// d = 10;
 					//cancel();
@@ -144,9 +145,9 @@ public class GeckManager {
 					//cancel();
 					return;
 				}
-			//}
+			}
 
-		//}.runTaskTimerAsynchronously(main, 0, 30);
+		}.runTaskTimer(main, 0, 30);
 		d = 10;
 		main.getRad().removeGeck(this);
 	}
