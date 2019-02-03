@@ -108,6 +108,9 @@ public class GeneratorManager {
 				}
 				if (getFurnaceInventory().contains(Material.COAL)) {
 					getFurnaceInventory().removeItem(new ItemStack(Material.COAL, 1));
+				} else if (getFurnaceInventory().contains(Material.COAL_BLOCK)) {
+					getFurnaceInventory().removeItem(new ItemStack(Material.COAL_BLOCK, 1));
+					getFurnaceInventory().addItem(new ItemStack(Material.COAL, 8));
 				} else {
 					owner.sendMessage("Generator needs coal, shutting down!");
 					stopGenerator();
@@ -181,37 +184,36 @@ public class GeneratorManager {
 
 	public void startGenerator() {
 		this.busy = true;
-		//new BukkitRunnable() {
-			//@Override
-			//public void run() {
-				if(u < 0 || u > 11) {
-					//cancel();
-					//u = 0;
-					return;
-				}
-				if (u == 0) {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + "0 "
-							+ ChatColor.GOLD + "%");
-				} else {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + u
-							+ "0 " + ChatColor.GOLD + "%");
-				}
-				u++;
-				if (u == 10) {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW
-							+ "100 " + ChatColor.GOLD + "%");
-					gen.getOwner()
-							.sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
-					gen.updateLamp(Material.REDSTONE_LAMP_ON);
+		// new BukkitRunnable() {
+		// @Override
+		// public void run() {
+		if (u < 0 || u > 11) {
+			// cancel();
+			// u = 0;
+			return;
+		}
+		if (u == 0) {
+			gen.getOwner().sendMessage(
+					ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
+		} else {
+			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + u + "0 "
+					+ ChatColor.GOLD + "%");
+		}
+		u++;
+		if (u == 10) {
+			gen.getOwner().sendMessage(
+					ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
+			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
+			gen.updateLamp(Material.REDSTONE_LAMP_ON);
 
-					gen.setValid(true);
-					gen.startWaitForCoal();
-					//cancel();
-					return;
-				}
-			//}
+			gen.setValid(true);
+			gen.startWaitForCoal();
+			// cancel();
+			return;
+		}
+		// }
 
-		//}.runTaskTimerAsynchronously(main, 0, 30);
+		// }.runTaskTimerAsynchronously(main, 0, 30);
 		u = 0;
 		this.busy = false;
 	}
@@ -219,62 +221,62 @@ public class GeneratorManager {
 	public void stopGenerator() {
 		this.busy = true;
 		this.run.cancel();
-		//new BukkitRunnable() {
-			//@Override
-			//public void run() {
-				if(d < 0 || d > 11) {
-					//d = 10;
-					//cancel();
-					return;
-				}
-				if (d == 10) {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
-							+ "100 " + ChatColor.GOLD + "%");
-				} else {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + d
-							+ "0 " + ChatColor.GOLD + "%");
-				}
-				d--;
-				if (d <= 0) {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
-							+ "0 " + ChatColor.GOLD + "%");
-					gen.getOwner().sendMessage(ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE
-							+ "Generator is now compleatly powered down!");
-					gen.updateLamp(Material.REDSTONE_LAMP_ON);
+		// new BukkitRunnable() {
+		// @Override
+		// public void run() {
+		if (d < 0 || d > 11) {
+			// d = 10;
+			// cancel();
+			return;
+		}
+		if (d == 10) {
+			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "100 "
+					+ ChatColor.GOLD + "%");
+		} else {
+			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + d + "0 "
+					+ ChatColor.GOLD + "%");
+		}
+		d--;
+		if (d <= 0) {
+			gen.getOwner().sendMessage(
+					ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
+			gen.getOwner().sendMessage(
+					ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now compleatly powered down!");
+			gen.updateLamp(Material.REDSTONE_LAMP_ON);
 
-					gen.setValid(false);
-					breakLamp();
-					main.getRad().removeGenerator(gen);
-					//cancel();
-					return;
-				}
-			//}
+			gen.setValid(false);
+			breakLamp();
+			main.getRad().removeGenerator(gen);
+			// cancel();
+			return;
+		}
+		// }
 
-		//}.runTaskTimerAsynchronously(main, 0, 30);
+		// }.runTaskTimerAsynchronously(main, 0, 30);
 		d = 10;
 		this.busy = false;
 	}
 
 	private void updateLamp(Material lamp) {
 		this.busy = true;
-		//new BukkitRunnable() {
-			//@Override
-			//public void run() {
-				gen.lamp.setType(lamp);
-			//}
-		//}.runTask(main);
+		// new BukkitRunnable() {
+		// @Override
+		// public void run() {
+		gen.lamp.setType(lamp);
+		// }
+		// }.runTask(main);
 		this.busy = false;
 	}
 
 	private void breakLamp() {
 		this.busy = true;
-		//new BukkitRunnable() {
+		// new BukkitRunnable() {
 
-			//@Override
-			//public void run() {
-				gen.lamp.breakNaturally();
-			//}
-		//}.runTask(main);
+		// @Override
+		// public void run() {
+		gen.lamp.breakNaturally();
+		// }
+		// }.runTask(main);
 		this.busy = false;
 	}
 
