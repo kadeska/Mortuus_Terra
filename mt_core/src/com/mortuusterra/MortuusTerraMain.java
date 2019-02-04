@@ -61,7 +61,7 @@ public class MortuusTerraMain extends JavaPlugin {
 	private Data fm;
 	private RadiationTask mtradtask;
 	
-	private NMSUtil nmsu = new NMSUtil();
+	private NMSUtil nmsu = new NMSUtil(); 
 	//private NMSUtils nmsutils;
 	private CustomZombieEgg egg;
 	
@@ -107,6 +107,9 @@ public class MortuusTerraMain extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(scTask, this);
 
 		supplyDropManager = new SupplyDropManager();
+		
+		
+		//I started on the custom Zombies because I was bored. They can easily be turned off. 
 		
 		//nmsutils = new NMSUtils();
 		//nmsutils.registerEntity(Type.ZOMBIE, CustomEntityZombie.class, true);
