@@ -54,16 +54,16 @@ public class MortuusTerraMain extends JavaPlugin {
 	private PowerListener power;
 	private ChunkListener chunkListener;
 	private MobListener mobListener;
-	private CustomZombieEggSpawnListener customZombieEggSpawnListener;
+	//private CustomZombieEggSpawnListener customZombieEggSpawnListener;
 	
 	private InfectTask infectTask;
 	private InfectManager infect;
 	private Data fm;
 	private RadiationTask mtradtask;
 	
-	private NMSUtil nmsu = new NMSUtil(); 
+	//private NMSUtil nmsu = new NMSUtil(); 
 	//private NMSUtils nmsutils;
-	private CustomZombieEgg egg;
+	//private CustomZombieEgg egg;
 	
 
 	@Override
@@ -114,11 +114,12 @@ public class MortuusTerraMain extends JavaPlugin {
 		//nmsutils = new NMSUtils();
 		//nmsutils.registerEntity(Type.ZOMBIE, CustomEntityZombie.class, true);
 		//nmsutils.addRandomSpawn(Type.ZOMBIE, new SpawnData(CustomEntityZombie.class, 100, 1, 100), Biome.values());
-		nmsu.registerEntity("The Flash",  54,  EntityZombie.class, CustomEntityZombie.class);
 		
-		egg = new CustomZombieEgg();
-		customZombieEggSpawnListener = new CustomZombieEggSpawnListener(this);
-		getServer().getPluginManager().registerEvents(customZombieEggSpawnListener, this);
+		//nmsu.registerEntity("The Flash",  54,  EntityZombie.class, CustomEntityZombie.class);
+		
+		//egg = new CustomZombieEgg();
+		//customZombieEggSpawnListener = new CustomZombieEggSpawnListener(this);
+		//getServer().getPluginManager().registerEvents(customZombieEggSpawnListener, this);
 		
 		// load this last
 		startSupplydrops();

@@ -19,7 +19,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void playerJoin(PlayerJoinEvent e) {
 		main.getRad().addPlayer(e.getPlayer());
-		e.getPlayer().getInventory().addItem(CustomZombieEgg.getItem());
+		//e.getPlayer().getInventory().addItem(CustomZombieEgg.getItem());
 	}
 	
 	@EventHandler

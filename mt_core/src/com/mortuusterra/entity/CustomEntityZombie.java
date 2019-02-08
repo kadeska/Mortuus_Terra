@@ -19,8 +19,10 @@ public class CustomEntityZombie extends EntityZombie {
 
 	public CustomEntityZombie(World world) {
 		super(world);
+		initAttributes();
 	}
 	
+	@Override
 	protected void initAttributes() {
 		super.initAttributes();
 		
@@ -31,9 +33,16 @@ public class CustomEntityZombie extends EntityZombie {
 		this.setBaby(false);
 		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(10.00D);
 		
-		//this.targetSelector.a(0, new PathfinderGoalNearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
-		//this.targetSelector.a(0, new PathfinderGoalNearestAttackableTarget<EntityZombie>(this, EntityZombie.class, true));
+		}
+	
+	@Override
+	protected void do_() {
+		this.targetSelector.a(0, new PathfinderGoalNearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
+		this.targetSelector.a(0, new PathfinderGoalNearestAttackableTarget<EntityZombie>(this, EntityZombie.class, true));
+
 	}
+	
+	
 	
 	protected Item getLoot() {
 		return Items.DIAMOND;
