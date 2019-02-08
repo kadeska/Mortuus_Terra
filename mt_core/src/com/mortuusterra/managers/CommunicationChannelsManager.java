@@ -1,5 +1,5 @@
 package com.mortuusterra.managers;
-
+//TODO: remove current chat system
 import java.util.HashMap;
 import java.util.logging.Level;
 

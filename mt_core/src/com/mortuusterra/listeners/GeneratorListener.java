@@ -22,7 +22,7 @@ public class GeneratorListener implements Listener {
 	}
 
 	/**
-	// this is just for testing the supplydrops
+	// this is for testing the supplydrops
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void forceSupplyDrop(PlayerInteractEvent e) {

@@ -1,3 +1,4 @@
+// hate to do this but we arent adding custom mobs
 package com.mortuusterra.entity;
 
 import org.bukkit.ChatColor;

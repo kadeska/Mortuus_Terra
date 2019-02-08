@@ -1,5 +1,5 @@
 package com.mortuusterra.event;
-
+//TODO going to rewrite the whole chat handler, take a look at wikerstys code for his chat system
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

@@ -1,3 +1,4 @@
+//TODO not having custom zombies anymore so delete this
 package com.mortuusterra.items;
 
 import org.bukkit.Material;

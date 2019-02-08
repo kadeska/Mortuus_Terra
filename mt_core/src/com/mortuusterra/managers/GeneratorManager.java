@@ -106,6 +106,7 @@ public class GeneratorManager {
 					stopGenerator();
 					return;
 				}
+				//TODO: are we just removing the coal blocks and replacing them with 8 coal? We should be burning coal blocks directly
 				if (getFurnaceInventory().contains(Material.COAL)) {
 					getFurnaceInventory().removeItem(new ItemStack(Material.COAL, 1));
 				} else if (getFurnaceInventory().contains(Material.COAL_BLOCK)) {

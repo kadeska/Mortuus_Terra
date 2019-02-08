@@ -67,6 +67,7 @@ public class GeckListener implements Listener {
 					}
 				} else {
 					// else add the sponge/geck to the MTGeckList
+					//TODO what happens if an identical GECK is already in the MTGeckList?
 					main.getRad().addGeck(new GeckManager(sponge.getLocation(), e.getPlayer(), main));
 
 					// Inform player that the new GECK has been build and now it needs to charge and
@@ -79,7 +80,7 @@ public class GeckListener implements Listener {
 							ChatColor.BLUE + "The GECK now will charge up and deradiate the air around it.");
 					e.getPlayer()
 							.sendMessage(ChatColor.BLUE + "Once finished there will be a " + ChatColor.GOLD
-									+ " radiation free zone" + ChatColor.BLUE + "that is about " + ChatColor.GOLD
+									+ " radiation free zone" + ChatColor.BLUE + "that is " + ChatColor.GOLD
 									+ " 10 blocks " + ChatColor.BLUE + "in every direction around the GECK");
 					e.getPlayer().sendMessage(ChatColor.BLUE + "GECK is now charging. Please wait!");
 					main.getRad().getGeck(sponge.getLocation()).setValid(true);

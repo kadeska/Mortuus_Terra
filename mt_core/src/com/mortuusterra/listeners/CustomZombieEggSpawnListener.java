@@ -1,5 +1,5 @@
 package com.mortuusterra.listeners;
-
+//TODO no custom zombies so delete this
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

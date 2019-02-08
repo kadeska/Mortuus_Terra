@@ -118,7 +118,7 @@ public class GeckManager {
 		}.runTaskTimer(main, 0, 30);
 		u = 0;
 	}
-
+	//TODO: these messages/delays are useless, should they even exist?
 	public void chargeDown() {
 		new BukkitRunnable() {
 			@Override

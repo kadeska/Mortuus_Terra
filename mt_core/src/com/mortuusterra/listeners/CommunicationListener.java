@@ -1,5 +1,5 @@
 package com.mortuusterra.listeners;
-
+//TODO rename to chatlistener.java and channels are not a thing, review wikerstys code for this
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;

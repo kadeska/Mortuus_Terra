@@ -1,5 +1,5 @@
 package com.mortuusterra.managers;
-
+// TODO: remove all chat commands because we will redo that
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

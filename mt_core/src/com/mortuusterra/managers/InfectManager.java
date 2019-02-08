@@ -25,11 +25,11 @@ import com.mortuusterra.event.InfectEvent;
 import com.mortuusterra.event.InfectionRemoveEvent;
 
 /**
- * This class will manage infections.	
+ * This class will manage infections.
  * @author Horsey
  */
 public class InfectManager implements Listener{
-	public static final long INFECTION_TIME = 600000; // Currently 10 minutes. 
+	public static final long INFECTION_TIME = 600000; // Currently 10 minutes. TODO this should be 30 mins
 	private static Map<Player, Long> infections = new WeakHashMap<>();
 	private MortuusTerraMain main = JavaPlugin.getPlugin(MortuusTerraMain.class);
 

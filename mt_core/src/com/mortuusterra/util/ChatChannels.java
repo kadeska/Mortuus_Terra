@@ -1,5 +1,5 @@
 package com.mortuusterra.util;
-
+//remove
 public enum ChatChannels {
 	NULL,
 	APLHA,
