@@ -2,21 +2,15 @@ package com.mortuusterra;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mortuusterra.entity.CustomEntityZombie;
-import com.mortuusterra.items.CustomZombieEgg;
 import com.mortuusterra.listeners.ChunkListener;
-import com.mortuusterra.listeners.CommunicationListener;
-import com.mortuusterra.listeners.CustomZombieEggSpawnListener;
 import com.mortuusterra.listeners.GeckListener;
 import com.mortuusterra.listeners.GeneratorListener;
 import com.mortuusterra.listeners.MobListener;
 import com.mortuusterra.listeners.PlayerListener;
 import com.mortuusterra.listeners.PowerListener;
-import com.mortuusterra.managers.CommunicationChannelsManager;
 import com.mortuusterra.managers.FalloutShelterManager;
 import com.mortuusterra.managers.InfectManager;
 import com.mortuusterra.managers.RadiationManager;
@@ -27,13 +21,6 @@ import com.mortuusterra.tasks.RadiationTask;
 import com.mortuusterra.tasks.ScoreboardTask;
 import com.mortuusterra.tasks.TimerTask;
 import com.mortuusterra.util.Data;
-import com.mortuusterra.util.NMSUtil;
-import com.mortuusterra.util.NMSUtils;
-import com.mortuusterra.util.NMSUtils.Biome;
-import com.mortuusterra.util.NMSUtils.SpawnData;
-import com.mortuusterra.util.NMSUtils.Type;
-
-import net.minecraft.server.v1_12_R1.EntityZombie;
 
 public class MortuusTerraMain extends JavaPlugin {
 
@@ -41,38 +28,30 @@ public class MortuusTerraMain extends JavaPlugin {
 
 	// private FileManager fm;
 	private CommandsManager cmd;
-	private CommunicationChannelsManager communicationChannels;
 	private RadiationManager rad;
 	private TimerTask mttimer;
 	private FalloutShelterManager shelterManager;
 	private SupplyDropManager supplyDropManager;
 
 	private PlayerListener pl;
-	private CommunicationListener communicationListener;
 	private GeckListener geck;
 	private GeneratorListener genListener;
 	private PowerListener power;
 	private ChunkListener chunkListener;
 	private MobListener mobListener;
-	//private CustomZombieEggSpawnListener customZombieEggSpawnListener;
 	
 	private InfectTask infectTask;
 	private InfectManager infect;
 	private Data fm;
 	private RadiationTask mtradtask;
 	
-	//private NMSUtil nmsu = new NMSUtil(); 
-	//private NMSUtils nmsutils;
-	//private CustomZombieEgg egg;
-	
 
 	@Override
-	public void onEnable() {
+	public void onEnable() {    
 		setFileManager(new Data(this));
 		cmd = new CommandsManager(this);
 		getCommand("channel").setExecutor(cmd);
 		getCommand("mortuusterra").setExecutor(cmd);
-		communicationChannels = new CommunicationChannelsManager(this);
 		rad = new RadiationManager(this);
 		//shelterManager = new MTFalloutShelter();
 
@@ -87,9 +66,6 @@ public class MortuusTerraMain extends JavaPlugin {
 
 		genListener = new GeneratorListener(this);
 		getServer().getPluginManager().registerEvents(genListener, this);
-
-		communicationListener = new CommunicationListener(this);
-		getServer().getPluginManager().registerEvents(communicationListener, this);
 
 		chunkListener = new ChunkListener(this);
 		getServer().getPluginManager().registerEvents(chunkListener, this);
@@ -107,19 +83,6 @@ public class MortuusTerraMain extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(scTask, this);
 
 		supplyDropManager = new SupplyDropManager();
-		
-		
-		//I started on the custom Zombies because I was bored. They can easily be turned off. 
-		
-		//nmsutils = new NMSUtils();
-		//nmsutils.registerEntity(Type.ZOMBIE, CustomEntityZombie.class, true);
-		//nmsutils.addRandomSpawn(Type.ZOMBIE, new SpawnData(CustomEntityZombie.class, 100, 1, 100), Biome.values());
-		
-		//nmsu.registerEntity("The Flash",  54,  EntityZombie.class, CustomEntityZombie.class);
-		
-		//egg = new CustomZombieEgg();
-		//customZombieEggSpawnListener = new CustomZombieEggSpawnListener(this);
-		//getServer().getPluginManager().registerEvents(customZombieEggSpawnListener, this);
 		
 		// load this last
 		startSupplydrops();
@@ -215,10 +178,6 @@ public class MortuusTerraMain extends JavaPlugin {
 
 	public TimerTask getMttimer() {
 		return mttimer;
-	}
-
-	public CommunicationChannelsManager getCommunicationChannels() {
-		return communicationChannels;
 	}
 
 	public RadiationManager getRad() {

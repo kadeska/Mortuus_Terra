@@ -6,7 +6,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.mortuusterra.MortuusTerraMain;
-import com.mortuusterra.items.CustomZombieEgg;
 
 public class PlayerListener implements Listener {
 	
@@ -19,7 +18,6 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void playerJoin(PlayerJoinEvent e) {
 		main.getRad().addPlayer(e.getPlayer());
-		//e.getPlayer().getInventory().addItem(CustomZombieEgg.getItem());
 	}
 	
 	@EventHandler
