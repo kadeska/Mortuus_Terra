@@ -21,21 +21,6 @@ public class GeneratorListener implements Listener {
 		this.main = m;
 	}
 
-	/**
-	// this is for testing the supplydrops
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	public void forceSupplyDrop(PlayerInteractEvent e) {
-		if (e.getClickedBlock() == null) {
-			return;
-		}
-		if (e.getPlayer().getItemInHand().getType().equals(Material.STICK)) {
-			new MTSupplyDrop(main.getServer().getWorld("world"), main);
-		}
-
-	}
-	**/
-
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
 		if (e.getBlock().getType().equals(Material.REDSTONE_LAMP_OFF)) {
@@ -78,6 +63,7 @@ public class GeneratorListener implements Listener {
 						// generator must be built correctly
 						e.getPlayer().sendMessage("Generator is built corectly");
 						e.getPlayer().sendMessage("Generator is starting ...");
+						
 						GeneratorManager gen = new GeneratorManager(e.getPlayer(), furnace.getLocation(), main);
 						main.getRad().addGenerator(gen);
 						gen.startGenerator();

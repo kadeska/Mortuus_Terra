@@ -8,7 +8,10 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.FurnaceSmeltEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -98,7 +101,6 @@ public class GeneratorManager {
 					owner.sendMessage(
 							"Your Generator is broken, it is not generating power anymore until you fix it!!");
 					stopGenerator();
-
 					return;
 				}
 				if (getFurnaceInventory() == null) {
@@ -106,17 +108,7 @@ public class GeneratorManager {
 					stopGenerator();
 					return;
 				}
-				//TODO: are we just removing the coal blocks and replacing them with 8 coal? We should be burning coal blocks directly
-				if (getFurnaceInventory().contains(Material.COAL)) {
-					getFurnaceInventory().removeItem(new ItemStack(Material.COAL, 1));
-				} else if (getFurnaceInventory().contains(Material.COAL_BLOCK)) {
-					getFurnaceInventory().removeItem(new ItemStack(Material.COAL_BLOCK, 1));
-					getFurnaceInventory().addItem(new ItemStack(Material.COAL, 8));
-				} else {
-					owner.sendMessage("Generator needs coal, shutting down!");
-					stopGenerator();
-				}
-
+				useCoal();
 			}
 		}.runTaskTimer(main, 10, 600);
 	}
@@ -138,7 +130,7 @@ public class GeneratorManager {
 	public boolean scan() {
 		this.busy = true;
 		new BukkitRunnable() {
-		    @Override
+			@Override
 			public void run() {
 				Block furnace = gen.getFurnace();
 				if (furnace.getRelative(BlockFace.UP).getType().equals(Material.REDSTONE_LAMP_OFF)) {
@@ -158,7 +150,7 @@ public class GeneratorManager {
 									gen.getOwner().sendMessage("Generator is not built corectly!");
 									stopGenerator();
 									gen.setValid(false);
-									//return valid;
+									// return valid;
 								}
 							}
 							for (BlockFace f : ironFenceFaces) {
@@ -167,7 +159,7 @@ public class GeneratorManager {
 									gen.getOwner().sendMessage("Generator is not built corectly!");
 									stopGenerator();
 									gen.setValid(false);
-									//return valid;
+									// return valid;
 								}
 							}
 						}
@@ -183,80 +175,45 @@ public class GeneratorManager {
 		return valid;
 	}
 
+	private void useCoal() {
+		// TODO: are we just removing the coal blocks and replacing them with 8 coal? We
+		// should be burning coal blocks directly
+		if (getFurnaceInventory().contains(Material.COAL)) {
+			getFurnaceInventory().removeItem(new ItemStack(Material.COAL, 1));
+		} else if (getFurnaceInventory().contains(Material.COAL_BLOCK)) {
+			getFurnaceInventory().removeItem(new ItemStack(Material.COAL_BLOCK, 1));
+			getFurnaceInventory().addItem(new ItemStack(Material.COAL, 8));
+		} else {
+			owner.sendMessage("Generator needs coal, shutting down!");
+			stopGenerator();
+		}
+
+	}
+
+	/*@EventHandler
+	public void onFurnaceSmelt(FurnaceSmeltEvent e) {
+
+		Furnace furnace = (Furnace) e.getBlock().getState();
+		furnace.setCookTime((short) 100);
+
+	}*/
+
 	public void startGenerator() {
 		this.busy = true;
-		 new BukkitRunnable() {
-		 @Override
-		 public void run() {
-		if (u < 0 || u > 11) {
-			 cancel();
-			// u = 0;
-			return;
-		}
-		if (u == 0) {
-			gen.getOwner().sendMessage(
-					ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
-		} else {
-			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + u + "0 "
-					+ ChatColor.GOLD + "%");
-		}
-		u++;
-		if (u == 10) {
-			gen.getOwner().sendMessage(
-					ChatColor.BLUE + "Generator boot up progress: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
-			gen.getOwner().sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
-			gen.updateLamp(Material.REDSTONE_LAMP_ON);
-
-			gen.setValid(true);
-			gen.startWaitForCoal();
-			cancel();
-			return;
-		}
-		 }
-
-		 }.runTaskTimer(main, 0, 30);
-		u = 0;
+		gen.updateLamp(Material.REDSTONE_LAMP_ON);
+		gen.setValid(true);
+		gen.getOwner().sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
+		gen.startWaitForCoal();
 		this.busy = false;
 	}
 
 	public void stopGenerator() {
 		this.busy = true;
-		if (this.run != null)
-			this.run.cancel();
-
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (d < 0 || d > 11) {
-					// d = 10;
-					cancel();
-					return;
-				}
-				if (d == 10) {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
-							+ "100 " + ChatColor.GOLD + "%");
-				} else {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW + d
-							+ "0 " + ChatColor.GOLD + "%");
-				}
-				d--;
-				if (d <= 0) {
-					gen.getOwner().sendMessage(ChatColor.BLUE + "Generator boot down progress: " + ChatColor.YELLOW
-							+ "0 " + ChatColor.GOLD + "%");
-					gen.getOwner().sendMessage(ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE
-							+ "Generator is now compleatly powered down!");
-					gen.updateLamp(Material.REDSTONE_LAMP_ON);
-
-					gen.setValid(false);
-					breakLamp();
-					main.getRad().removeGenerator(gen);
-					 cancel();
-					return;
-				}
-			}
-
-		}.runTaskTimer(main, 0, 30);
-		d = 10;
+		gen.getOwner().sendMessage(
+				ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now compleatly powered down!");
+		gen.updateLamp(Material.REDSTONE_LAMP_OFF);
+		gen.setValid(false);
+		main.getRad().removeGenerator(gen);
 		this.busy = false;
 	}
 
@@ -266,18 +223,6 @@ public class GeneratorManager {
 		// @Override
 		// public void run() {
 		gen.lamp.setType(lamp);
-		// }
-		// }.runTask(main);
-		this.busy = false;
-	}
-
-	private void breakLamp() {
-		this.busy = true;
-		// new BukkitRunnable() {
-
-		// @Override
-		// public void run() {
-		gen.lamp.breakNaturally();
 		// }
 		// }.runTask(main);
 		this.busy = false;
