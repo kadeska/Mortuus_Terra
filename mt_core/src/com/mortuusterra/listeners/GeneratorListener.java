@@ -23,13 +23,13 @@ public class GeneratorListener implements Listener {
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
-		if (e.getBlock().getType().equals(Material.REDSTONE_LAMP_OFF)) {
+		if (e.getBlock().getType().equals(Material.LEGACY_REDSTONE_LAMP_OFF)) {
 			Block lamp = e.getBlock();
 			if (lamp.getRelative(BlockFace.DOWN).getType().equals(Material.FURNACE)) {
 				Block furnace = lamp.getRelative(BlockFace.DOWN);
-				if (furnace.getRelative(BlockFace.DOWN).getType().equals(Material.SMOOTH_BRICK)) {
+				if (furnace.getRelative(BlockFace.DOWN).getType().equals(Material.LEGACY_SMOOTH_BRICK)) {
 					Block centerGround = furnace.getRelative(BlockFace.DOWN);
-					if (lamp.getRelative(BlockFace.UP).getType().equals(Material.STEP)) {
+					if (lamp.getRelative(BlockFace.UP).getType().equals(Material.STONE_BRICK_SLAB)) {
 						if (main.getRad().containsGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation())) {
 							e.getPlayer().sendMessage("There is already a generator at this location!");
 							return;
@@ -47,15 +47,15 @@ public class GeneratorListener implements Listener {
 						BlockFace[] ironFenceFaces = { BlockFace.NORTH_EAST, BlockFace.NORTH_WEST, BlockFace.SOUTH_EAST,
 								BlockFace.SOUTH_WEST };
 						for (BlockFace f : squareFaces) {
-							if (!centerGround.getRelative(f).getType().equals(Material.SMOOTH_BRICK)
-									|| !centerTop.getRelative(f).getType().equals(Material.STEP)) {
+							if (!centerGround.getRelative(f).getType().equals(Material.LEGACY_SMOOTH_BRICK)
+									|| !centerTop.getRelative(f).getType().equals(Material.STONE_BRICK_SLAB)) {
 								e.getPlayer().sendMessage("Generator is not built corectly!");
 								return;
 							}
 						}
 						for (BlockFace f : ironFenceFaces) {
-							if (!furnace.getRelative(f).getType().equals(Material.IRON_FENCE)
-									|| !lamp.getRelative(f).getType().equals(Material.IRON_FENCE)) {
+							if (!furnace.getRelative(f).getType().equals(Material.IRON_BARS)
+									|| !lamp.getRelative(f).getType().equals(Material.IRON_BARS)) {
 								e.getPlayer().sendMessage("Generator is not built corectly!");
 								return;
 							}
@@ -105,8 +105,8 @@ public class GeneratorListener implements Listener {
 
 	@EventHandler
 	public void lampBreak(BlockBreakEvent e) {
-		if (e.getBlock().getType().equals(Material.REDSTONE_LAMP_ON)
-				|| e.getBlock().getType().equals(Material.REDSTONE_LAMP_OFF)) {
+		if (e.getBlock().getType().equals(Material.LEGACY_REDSTONE_LAMP_ON)
+				|| e.getBlock().getType().equals(Material.LEGACY_REDSTONE_LAMP_OFF)) {
 			if (main.getRad().containsGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation())) {
 				if (main.getRad().getGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation()).isBusy()) {
 					e.setCancelled(true);

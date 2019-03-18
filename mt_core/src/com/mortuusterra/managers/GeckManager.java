@@ -74,7 +74,7 @@ public class GeckManager {
 		BlockFace[] faces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH };
 		for (BlockFace f : faces) {
 			// are there pistons on the 4 horizontal sides of the sponge
-			if (!sponge.getRelative(f).getType().equals(Material.PISTON_BASE)) {
+			if (!sponge.getRelative(f).getType().equals(Material.LEGACY_PISTON_BASE)) {
 				owner.sendMessage("The GECK is broken, shutting down!");
 				setValid(false);
 				chargeDown();
