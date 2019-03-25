@@ -147,7 +147,7 @@ public class GeneratorManager {
 							for (BlockFace f : squareFaces) {
 								if (!centerGround.getRelative(f).getType().equals(Material.LEGACY_SMOOTH_BRICK)
 										|| !centerTop.getRelative(f).getType().equals(Material.STONE_SLAB)) {
-									gen.getOwner().sendMessage("Generator is not built corectly!");
+									gen.getOwner().sendMessage("Generator is not built correctly!");
 									stopGenerator();
 									gen.setValid(false);
 									// return valid;
@@ -156,7 +156,7 @@ public class GeneratorManager {
 							for (BlockFace f : ironFenceFaces) {
 								if (!furnace.getRelative(f).getType().equals(Material.IRON_BARS)
 										|| !lamp.getRelative(f).getType().equals(Material.IRON_BARS)) {
-									gen.getOwner().sendMessage("Generator is not built corectly!");
+									gen.getOwner().sendMessage("Generator is not built correctly!");
 									stopGenerator();
 									gen.setValid(false);
 									// return valid;
@@ -202,7 +202,7 @@ public class GeneratorManager {
 		this.busy = true;
 		gen.updateLamp(Material.LEGACY_REDSTONE_LAMP_ON);
 		gen.setValid(true);
-		gen.getOwner().sendMessage(ChatColor.BLUE + "Generator is now compleatly powered up, and awaiting coal!");
+		gen.getOwner().sendMessage(ChatColor.BLUE + "Generator is now completely powered up, and awaiting coal!");
 		gen.startWaitForCoal();
 		this.busy = false;
 	}
@@ -210,7 +210,7 @@ public class GeneratorManager {
 	public void stopGenerator() {
 		this.busy = true;
 		gen.getOwner().sendMessage(
-				ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now compleatly powered down!");
+				ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now completely powered down!");
 		gen.updateLamp(Material.LEGACY_REDSTONE_LAMP_OFF);
 		gen.setValid(false);
 		main.getRad().removeGenerator(gen);

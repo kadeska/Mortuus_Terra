@@ -38,7 +38,7 @@ public class GeneratorListener implements Listener {
 							e.getPlayer().sendMessage(ChatColor.RED + "!WARNING! " + ChatColor.BLUE
 									+ "You are building this generator in range of another generator.");
 							e.getPlayer().sendMessage(ChatColor.BLUE
-									+ "It is recomended to build a new generator out of range of another generator");
+									+ "It is recommended to build a new generator out of range of another generator");
 						}
 						Block centerTop = lamp.getRelative(BlockFace.UP);
 						BlockFace[] squareFaces = { BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH,
@@ -49,19 +49,19 @@ public class GeneratorListener implements Listener {
 						for (BlockFace f : squareFaces) {
 							if (!centerGround.getRelative(f).getType().equals(Material.LEGACY_SMOOTH_BRICK)
 									|| !centerTop.getRelative(f).getType().equals(Material.STONE_BRICK_SLAB)) {
-								e.getPlayer().sendMessage("Generator is not built corectly!");
+								e.getPlayer().sendMessage("Generator is not built correctly!");
 								return;
 							}
 						}
 						for (BlockFace f : ironFenceFaces) {
 							if (!furnace.getRelative(f).getType().equals(Material.IRON_BARS)
 									|| !lamp.getRelative(f).getType().equals(Material.IRON_BARS)) {
-								e.getPlayer().sendMessage("Generator is not built corectly!");
+								e.getPlayer().sendMessage("Generator is not built correctly!");
 								return;
 							}
 						}
 						// generator must be built correctly
-						e.getPlayer().sendMessage("Generator is built corectly");
+						e.getPlayer().sendMessage("Generator is built correctly");
 						e.getPlayer().sendMessage("Generator is starting ...");
 						
 						GeneratorManager gen = new GeneratorManager(e.getPlayer(), furnace.getLocation(), main);
