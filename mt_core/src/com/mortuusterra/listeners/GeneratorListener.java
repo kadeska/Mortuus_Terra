@@ -1,5 +1,7 @@
 package com.mortuusterra.listeners;
 
+import com.mortuusterra.MortuusTerraMain;
+import com.mortuusterra.managers.GeneratorManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -8,10 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-
-import com.mortuusterra.MortuusTerraMain;
-import com.mortuusterra.managers.GeneratorManager;
 
 public class GeneratorListener implements Listener {
 
@@ -20,7 +18,7 @@ public class GeneratorListener implements Listener {
 	public GeneratorListener(MortuusTerraMain m) {
 		this.main = m;
 	}
-
+//TODO change these so they aren't depreciated before release even if it means we have to change the format of generators
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
 		if (e.getBlock().getType().equals(Material.LEGACY_REDSTONE_LAMP_OFF)) {
@@ -74,26 +72,10 @@ public class GeneratorListener implements Listener {
 	}
 
 	@EventHandler
-	public void onInteract(PlayerInteractEvent e) {
-		if (e.getClickedBlock() == null) {
-			return;
-		}
-		if (!e.getClickedBlock().getType().equals(Material.FURNACE)) {
-			return;
-		}
-		if (main.getRad().containsGenerator(e.getClickedBlock().getLocation())) {
-			if (!main.getRad().canPlayerInteractGenerator(main.getRad().getGenerator(e.getClickedBlock().getLocation()),
-					e.getPlayer())) {
-				e.getPlayer().sendMessage("This is not your generator, you can not interact with it.");
-			}
-		}
-	}
-
-	@EventHandler
-	public void furnacBreak(BlockBreakEvent e) {
+	public void furnaceBreak(BlockBreakEvent e) {
 		if (e.getBlock().getType().equals(Material.FURNACE)) {
 			if (main.getRad().containsGenerator(e.getBlock().getLocation())) {
-				if (main.getRad().getGenerator(e.getBlock().getLocation()).isBusy()) {
+				if (main.getRad().getGenerator(e.getBlock().getLocation()).busy) {
 					e.setCancelled(true);
 					e.getPlayer().sendMessage("This generator is busy, please wait!");
 					return;
@@ -103,18 +85,4 @@ public class GeneratorListener implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void lampBreak(BlockBreakEvent e) {
-		if (e.getBlock().getType().equals(Material.LEGACY_REDSTONE_LAMP_ON)
-				|| e.getBlock().getType().equals(Material.LEGACY_REDSTONE_LAMP_OFF)) {
-			if (main.getRad().containsGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation())) {
-				if (main.getRad().getGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation()).isBusy()) {
-					e.setCancelled(true);
-					e.getPlayer().sendMessage("This generator is busy, please wait!");
-					return;
-				}
-				main.getRad().getGenerator(e.getBlock().getRelative(BlockFace.DOWN).getLocation()).stopGenerator();
-			}
-		}
-	}
 }

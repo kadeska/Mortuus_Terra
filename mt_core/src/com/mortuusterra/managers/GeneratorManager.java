@@ -1,24 +1,20 @@
 package com.mortuusterra.managers;
 
-import java.util.ArrayList;
-
+import com.mortuusterra.MortuusTerraMain;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.inventory.FurnaceSmeltEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import com.mortuusterra.MortuusTerraMain;
+import java.util.ArrayList;
 
 public class GeneratorManager {
 	private GeneratorManager gen = this;
@@ -33,8 +29,7 @@ public class GeneratorManager {
 	private Player owner;
 	private ArrayList<Player> allowedPlayers = new ArrayList<Player>();
 	private BukkitTask run;
-
-	private boolean busy;
+	public boolean busy;
 
 	public GeneratorManager(Player owner, Location furnacLocation, MortuusTerraMain m) {
 		this.main = m;
@@ -43,11 +38,6 @@ public class GeneratorManager {
 		this.lamp = furnace.getRelative(BlockFace.UP);
 		this.owner = owner;
 	}
-
-	public boolean isBusy() {
-		return busy;
-	}
-
 	public Boolean getPowered() {
 		return powered;
 	}
@@ -103,11 +93,6 @@ public class GeneratorManager {
 					stopGenerator();
 					return;
 				}
-				if (getFurnaceInventory() == null) {
-					owner.sendMessage("Generator is missing the furnace, shutting down!");
-					stopGenerator();
-					return;
-				}
 				useCoal();
 			}
 		}.runTaskTimer(main, 10, 600);
@@ -122,11 +107,12 @@ public class GeneratorManager {
 
 	/**
 	 * 
-	 * @param gen
-	 *            The generator that is to be scanned
 	 * @return True if generator is still fully built. False if generator is not
 	 *         still fully built.
 	 */
+
+
+	//TODO() Change these so they aren't depreciated before release
 	public boolean scan() {
 		this.busy = true;
 		new BukkitRunnable() {
@@ -168,7 +154,6 @@ public class GeneratorManager {
 				// generator must be built correctly still, so set valid true and update lamp if
 				// it is off
 				gen.setValid(true);
-				gen.updateLamp(Material.LEGACY_REDSTONE_LAMP_OFF);
 			}
 		}.runTask(main);
 		this.busy = false;
@@ -200,7 +185,6 @@ public class GeneratorManager {
 
 	public void startGenerator() {
 		this.busy = true;
-		gen.updateLamp(Material.LEGACY_REDSTONE_LAMP_ON);
 		gen.setValid(true);
 		gen.getOwner().sendMessage(ChatColor.BLUE + "Generator is now completely powered up, and awaiting coal!");
 		gen.startWaitForCoal();
@@ -211,20 +195,8 @@ public class GeneratorManager {
 		this.busy = true;
 		gen.getOwner().sendMessage(
 				ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "Generator is now completely powered down!");
-		gen.updateLamp(Material.LEGACY_REDSTONE_LAMP_OFF);
 		gen.setValid(false);
 		main.getRad().removeGenerator(gen);
-		this.busy = false;
-	}
-
-	private void updateLamp(Material lamp) {
-		this.busy = true;
-		// new BukkitRunnable() {
-		// @Override
-		// public void run() {
-		gen.lamp.setType(lamp);
-		// }
-		// }.runTask(main);
 		this.busy = false;
 	}
 

@@ -1,11 +1,12 @@
 package com.mortuusterra.managers;
-//TODO: over documentation is a thing, can we clean this file up so it looks way neater?
-import java.util.ArrayList;
+
+import com.mortuusterra.MortuusTerraMain;
+import com.mortuusterra.tasks.RadiationTask;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import com.mortuusterra.MortuusTerraMain;
-import com.mortuusterra.tasks.RadiationTask;
+
+import java.util.ArrayList;
 
 public class RadiationManager {
 
