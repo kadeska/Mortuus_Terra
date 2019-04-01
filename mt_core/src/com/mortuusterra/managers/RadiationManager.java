@@ -9,7 +9,13 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class RadiationManager {
-
+// Radiation damage should be a system that works as follows:
+// Rads int as a value applied to the player
+//Rads number depends on weather and if indoors/in water
+// Deal player damage based on rads int
+// GECKS remove all rads for players in range
+// no rads in nether
+// Armor lowers rad level by certain amount, OR rad damage is modified by armor level value in spigot
 	private MortuusTerraMain main;
 	private final int geckRange = 10, generatorRange = 25;
 	private ArrayList<Player> playerList = new ArrayList<Player>();
