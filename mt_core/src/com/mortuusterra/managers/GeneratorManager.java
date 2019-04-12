@@ -15,7 +15,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
+
 // TODO: Code furnace to use existing bukkit integration instead of a custom removing materials and ispowered method
+
 public class GeneratorManager {
 	private GeneratorManager gen = this;
 	private MortuusTerraMain main;

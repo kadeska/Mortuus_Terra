@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class RadiationManager {
+
 // Radiation damage should be a system that works as follows:
 // Rads int as a value applied to the player
 //Rads number depends on weather and if indoors/in water
@@ -16,6 +17,8 @@ public class RadiationManager {
 // GECKS remove all rads for players in range
 // no rads in nether
 // Armor lowers rad level by certain amount, OR rad damage is modified by armor level value in spigot
+// Careful here, if we treat this as normal damage that armor protects against we must take durability loss into consideration, is this something we want or should rads not damage armor
+
 	private MortuusTerraMain main;
 	private final int geckRange = 10, generatorRange = 25;
 	private ArrayList<Player> playerList = new ArrayList<Player>();
@@ -177,7 +180,9 @@ public class RadiationManager {
 	 *         if the given player can not interact with the given generator. Only
 	 *         the owner of the generator or and members of the generator can
 	 *         interact with the generator.
+	 *
 	 */
+	 //TODO we dont need this, faction land will take care of permission to use
 	public boolean canPlayerInteractGenerator(GeneratorManager gen, Player player) {
 		if (gen.getOwner().getUniqueId().equals(player.getUniqueId()) || gen.getAllowedPlayers().contains(player)) {
 			return true;

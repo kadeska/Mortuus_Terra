@@ -108,7 +108,7 @@ public class GeckManager {
 				if (u == 10) {
 					owner.sendMessage(
 							ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "100 " + ChatColor.GOLD + "%");
-					owner.sendMessage(ChatColor.BLUE + "GECK is now compleatly pwered up!");
+					owner.sendMessage(ChatColor.BLUE + "GECK is now powered up!");
 					setPowered(true);
 					//cancel();
 					return;
@@ -140,7 +140,7 @@ public class GeckManager {
 				if (d <= 0) {
 					owner.sendMessage(ChatColor.BLUE + "GECK power: " + ChatColor.YELLOW + "0 " + ChatColor.GOLD + "%");
 					owner.sendMessage(
-							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "GECK is now compleatly powered down!");
+							ChatColor.RED + "!!WARNING!! " + ChatColor.BLUE + "GECK is now powered down!");
 					setPowered(false);
 					//cancel();
 					return;

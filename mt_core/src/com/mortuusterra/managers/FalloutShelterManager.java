@@ -14,7 +14,9 @@ import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.world.DataException;
-//lets make this a work in progress and remove code in the master branch, we should researvh and practice in a test plugin then implement
+
+//Test, may have to hold on this, use cityworld generation????
+
 @SuppressWarnings("deprecation")
 public class FalloutShelterManager {
 

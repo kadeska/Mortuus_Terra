@@ -24,6 +24,8 @@ import com.mortuusterra.MortuusTerraMain;
 import com.mortuusterra.event.InfectEvent;
 import com.mortuusterra.event.InfectionRemoveEvent;
 
+// needs testing!
+
 /**
  * This class will manage infections.
  * @author Horsey
