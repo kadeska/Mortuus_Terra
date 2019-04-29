@@ -4,7 +4,7 @@ You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://github.com/kadeska/MT_Core/blob/master/LICENSE>.
     
 ## MT_Core
-#### Zombie Apocalypse core plugin for Minecraft Spigot 1.12.x
+#### Zombie Apocalypse core plugin for Minecraft Spigot 1.13.x
 
  ##### This plugin is in progress and is still in Alpha, and will be making various updates throughout the Alpha stage, so be on the lookout for any updates that we make because it might be a performance fix or a new feature that was added.
  
